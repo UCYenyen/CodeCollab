@@ -65,7 +65,15 @@ export function SignInForm() {
             )}
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <div className="flex items-center">
+              <Label htmlFor="password">Password</Label>
+              <Link
+                href="/auth/forgot-password"
+                className="ml-auto inline-block text-sm underline text-muted-foreground hover:text-primary"
+              >
+                Forgot your password?
+              </Link>
+            </div>
             <Input
               id="password"
               placeholder="••••••••"
@@ -79,26 +87,18 @@ export function SignInForm() {
               <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading} className="w-full">
             {isLoading && (
-              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
             )}
             Sign In
           </Button>
         </div>
       </form>
-      <div className="flex flex-col space-y-2 text-center text-sm">
-        <Link
-          href="/auth/forgot-password"
-          className="hover:underline text-muted-foreground"
-        >
-          Forgot your password?
-        </Link>
-        <Link
-          href="/auth/sign-up"
-          className="hover:underline text-muted-foreground"
-        >
-          Don&apos;t have an account? Sign Up
+      <div className="mt-4 text-center text-sm">
+        Don&apos;t have an account?{" "}
+        <Link href="/auth/sign-up" className="underline hover:text-primary text-muted-foreground font-medium">
+          Sign up
         </Link>
       </div>
     </div>

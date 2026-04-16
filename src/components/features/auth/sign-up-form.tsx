@@ -95,20 +95,18 @@ export function SignUpForm() {
               </p>
             )}
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading} className="w-full mt-2">
             {isLoading && (
-              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
             )}
             Sign Up
           </Button>
         </div>
       </form>
-      <div className="text-center text-sm">
-        <Link
-          href="/auth/sign-in"
-          className="hover:underline text-muted-foreground"
-        >
-          Already have an account? Sign In
+      <div className="mt-4 text-center text-sm">
+        Already have an account?{" "}
+        <Link href="/auth/sign-in" className="underline hover:text-primary text-muted-foreground font-medium">
+          Sign in
         </Link>
       </div>
     </div>

@@ -1,0 +1,141 @@
+import os
+
+files = {
+    "src/app/auth/sign-in/page.tsx": """import { SignInForm } from "@/components/features/auth/sign-in-form";
+import Link from "next/link";
+import { Command } from "lucide-react";
+
+export default function SignInPage() {
+  return (
+    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+        <div className="absolute inset-0 bg-zinc-900" />
+        <div className="relative z-20 flex items-center text-lg font-medium">
+          <Command className="mr-2 h-5 w-5" />
+          CodeCollab
+        </div>
+        <div className="relative z-20 mt-auto">
+          <blockquote className="space-y-2">
+            <p className="text-lg">
+              &ldquo;This platform fundamentally changed how our engineering team collaborates on complex repositories.&rdquo;
+            </p>
+            <footer className="text-sm">Sofia Davis, Lead Engineer</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div className="p-8">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Welcome back
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your email to sign in to your account
+            </p>
+          </div>
+          <SignInForm />
+          <p className="px-8 text-center text-sm text-muted-foreground">
+            By clicking continue, you agree to our{" "}
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              Privacy Policy
+            </Link>.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+""",
+    "src/app/auth/sign-up/page.tsx": """import { SignUpForm } from "@/components/features/auth/sign-up-form";
+import Link from "next/link";
+import { Command } from "lucide-react";
+
+export default function SignUpPage() {
+  return (
+    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+        <div className="absolute inset-0 bg-zinc-900" />
+        <div className="relative z-20 flex items-center text-lg font-medium">
+          <Command className="mr-2 h-5 w-5" />
+          CodeCollab
+        </div>
+        <div className="relative z-20 mt-auto">
+          <blockquote className="space-y-2">
+            <p className="text-lg">
+              &ldquo;Building software together has never been this seamless and enjoyable.&rdquo;
+            </p>
+            <footer className="text-sm">Alex Chen, Senior Developer</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div className="p-8">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Create an account
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your details below to create your account
+            </p>
+          </div>
+          <SignUpForm />
+        </div>
+      </div>
+    </div>
+  );
+}
+""",
+    "src/app/auth/forgot-password/page.tsx": """import { ForgotPasswordForm } from "@/components/features/auth/forgot-password-form";
+import { Command } from "lucide-react";
+
+export default function ForgotPasswordPage() {
+  return (
+    <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
+        <div className="absolute inset-0 bg-zinc-900" />
+        <div className="relative z-20 flex items-center text-lg font-medium">
+          <Command className="mr-2 h-5 w-5" />
+          CodeCollab
+        </div>
+        <div className="relative z-20 mt-auto">
+          <blockquote className="space-y-2">
+            <p className="text-lg">
+              &ldquo;We'll get you back to your code in no time.&rdquo;
+            </p>
+            <footer className="text-sm">The Support Team</footer>
+          </blockquote>
+        </div>
+      </div>
+      <div className="p-8">
+        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+          <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Reset Password
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Enter your email to receive a password reset link
+            </p>
+          </div>
+          <ForgotPasswordForm />
+        </div>
+      </div>
+    </div>
+  );
+}
+"""
+}
+
+for path, content in files.items():
+    with open(path, "w") as f:
+        f.write(content)
+
