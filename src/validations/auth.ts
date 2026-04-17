@@ -18,6 +18,11 @@ export const forgotPasswordSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
 });
 
+export const refreshTokenSchema = z.object({
+  refresh_token: z.string().min(1, { message: 'Refresh token is required' }),
+});
+
 export type SignInSchema = z.infer<typeof signInSchema>;
 export type SignUpSchema = z.infer<typeof signUpSchema>;
 export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
+export type RefreshTokenSchema = z.infer<typeof refreshTokenSchema>;

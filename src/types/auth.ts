@@ -19,3 +19,16 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
 }
+
+/** Standardized response shape for all `/api/game/auth/*` endpoints consumed by Unity. */
+export interface GameAuthResponse {
+  success: boolean;
+  access_token?: string;
+  refresh_token?: string;
+  user?: {
+    id: string;
+    email?: string;
+  };
+  error?: string;
+  message?: string;
+}
