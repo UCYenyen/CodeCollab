@@ -19,7 +19,7 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 transition-all duration-200 bg-muted",
+        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 transition-all duration-200 bg-background border-b-3",
         scrolled && "shadow-sm"
       )}
     >
@@ -27,7 +27,7 @@ export function Navbar() {
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
           <Sparkles className="h-4 w-4 text-primary-foreground" />
         </div>
-        <span className="font-display text-xl text-foreground">BrainSpark</span>
+        <span className="font-display text-3xl text-foreground">BrainSpark</span>
       </Link>
 
       <div className="hidden items-center gap-8 md:flex">
@@ -35,14 +35,14 @@ export function Navbar() {
           <Link
             key={href}
             href={href}
-            className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
+            className="text-md font-semibold text-muted-foreground transition-colors hover:text-foreground"
           >
             {label}
           </Link>
         ))}
       </div>
 
-      <Button className="rounded-full px-5 font-bold shadow-none">
+      <Button className="rounded-full text-md px-5 font-bold shadow-none">
         Try For Free →
       </Button>
     </nav>
