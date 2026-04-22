@@ -49,25 +49,25 @@ const STEPS: Step[] = [
 function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
   const Icon = step.icon;
   return (
-    <div className="relative flex-1">
-      <div className="overflow-hidden rounded-3xl border border-border/50 shadow-sm">
+    <div className="relative z-11 flex-1">
+      <div className="relative z-11 overflow-hidden rounded-3xl border-2  border-r-5 border-b-5 shadow-sm">
         <div className={cn("relative flex h-48 items-center justify-center p-8", step.cardBg)}>
           <span
             className={cn(
-              "absolute left-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold",
+              "absolute border-2 border-black border-b-3 border-r-3 left-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold",
               step.numberBg,
               step.numberText
             )}
           >
             {step.number}
           </span>
-          <Icon className="h-12 w-12 text-foreground/40" strokeWidth={1.5} />
+          <Icon className="h-12 w-12 text-foreground" strokeWidth={1.5} />
         </div>
         <div className="bg-card p-6">
           <h3 className="mb-2 font-display text-lg text-foreground">
             {step.title}
           </h3>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm leading-relaxed text-muted-foreground font-semibold">
             {step.description}
           </p>
         </div>
@@ -76,7 +76,7 @@ function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
         <div className="absolute right-0 top-24 z-10 hidden translate-x-1/2 -translate-y-1/2 lg:block">
           <div className="flex items-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="h-1.5 w-1.5 rounded-full bg-border" />
+              <div key={i} className="h-0.5 w-1.5 rounded-full bg-border" />
             ))}
           </div>
         </div>
@@ -87,13 +87,13 @@ function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="bg-background px-6 py-24">
+    <section id="how-it-works" className="bg-muted-background px-6 py-24">
       <div className="mx-auto max-w-5xl">
         <div className="mb-14 text-center">
           <h2 className="font-display text-4xl text-foreground">
             How BrainSpark Works
           </h2>
-          <p className="mt-3 text-lg text-muted-foreground">
+          <p className="mt-3 text-lg text-muted-foreground font-semibold">
             Three simple steps to unlock your child&apos;s cognitive potential.
           </p>
         </div>

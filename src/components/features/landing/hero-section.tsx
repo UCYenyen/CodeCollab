@@ -57,7 +57,7 @@ export function HeroSection() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 lg:grid-cols-2">
         <div className="flex flex-col gap-7">
           <Badge
-            variant="outline" className="bg-white border-black border-2 border-r-5 border-b-5 px-8 py-3"
+            variant="outline" className="bg-white border-black border-2 border-r-5 border-b-5 py-3"
           >
             🎮 The Brain Game Kids Actually Love
           </Badge>

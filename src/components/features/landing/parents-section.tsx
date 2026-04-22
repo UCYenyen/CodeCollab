@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { BarChart2, Mail, MonitorSmartphone, ShieldCheck } from "lucide-react";
+import { FaPuzzlePiece } from "react-icons/fa";
+import { IoEye } from "react-icons/io5";
 import type { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 type Feature = {
   icon: LucideIcon;
@@ -37,7 +40,7 @@ const FEATURES: Feature[] = [
 ];
 
 type DomainRow = {
-  emoji: string;
+  emoji: ReactNode;
   label: string;
   value: string;
   valueColor: string;
@@ -47,7 +50,7 @@ type DomainRow = {
 
 const DOMAIN_ROWS: DomainRow[] = [
   {
-    emoji: "🧩",
+     emoji: <FaPuzzlePiece/>,
     label: "Logic",
     value: "+12%",
     valueColor: "text-primary",
@@ -55,7 +58,7 @@ const DOMAIN_ROWS: DomainRow[] = [
     barWidth: "w-3/4",
   },
   {
-    emoji: "🎯",
+    emoji: <IoEye/>,
     label: "Attention",
     value: "+5%",
     valueColor: "text-blue-500",
@@ -67,13 +70,13 @@ const DOMAIN_ROWS: DomainRow[] = [
 function FeatureCard({ feature }: { feature: Feature }) {
   const Icon = feature.icon;
   return (
-    <div className="flex items-start gap-4 rounded-2xl bg-card/80 p-5">
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${feature.iconBg}`}>
+    <div className="flex items-start gap-4 rounded-2xl bg-card border-2 border-b-4 border-r-4 p-5">
+      <div className={`flex border-2 h-10 w-10 shrink-0 items-center justify-center rounded-xl ${feature.iconBg}`}>
         <Icon className="h-5 w-5 text-foreground" />
       </div>
       <div>
         <p className="text-sm font-bold text-foreground">{feature.title}</p>
-        <p className="mt-0.5 text-xs leading-relaxed text-foreground/60">
+        <p className="mt-0.5 text-xs leading-relaxed text-foreground">
           {feature.description}
         </p>
       </div>
@@ -83,11 +86,11 @@ function FeatureCard({ feature }: { feature: Feature }) {
 
 function DashboardMockup() {
   return (
-    <div className="w-full max-w-sm rounded-2xl bg-card shadow-xl">
+    <div className="w-full max-w-sm rounded-2xl bg-card shadow-xl border-2 border-b-4 border-r-4">
       <div className="flex items-center gap-1.5 rounded-t-2xl bg-card px-4 py-3 border-b border-border">
-        <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
-        <div className="h-2.5 w-2.5 rounded-full bg-secondary" />
-        <div className="h-2.5 w-2.5 rounded-full bg-green-400" />
+        <div className="border h-2.5 w-2.5 rounded-full bg-red-400" />
+        <div className="border h-2.5 w-2.5 rounded-full bg-secondary" />
+        <div className="border h-2.5 w-2.5 rounded-full bg-green-400" />
         <span className="ml-2 flex-1 text-[11px] font-medium text-muted-foreground">
           Report · Mia&apos;s Week
         </span>
@@ -98,18 +101,18 @@ function DashboardMockup() {
           <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-feature-icon-1 text-2xl">
             👧
           </div>
-          <p className="text-sm font-bold text-foreground">
+          <p className="text-sm font-extrabold text-foreground">
             Mia&apos;s BrainSpark Report
           </p>
-          <p className="text-[11px] text-muted-foreground">
+          <p className="text-[11px] text-foreground font-semibold">
             Week of Oct 12 – 18
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 mb-5">
+        <div className="flex bg-muted-background flex-col gap-4 mb-5">
           {DOMAIN_ROWS.map(({ emoji, label, value, valueColor, barColor, barWidth }) => (
-            <div key={label} className="flex items-center gap-3">
-              <span className="text-base leading-none">{emoji}</span>
+            <div key={label} className="flex border-2 rounded-lg p-2 py-4 items-center gap-3">
+              <span className={`text-base leading-none border-2 p-2 rounded-full ${barColor}`}>{emoji}</span>
               <div className="flex-1">
                 <div className="mb-1 flex justify-between">
                   <span className="text-xs font-semibold text-foreground">
@@ -140,10 +143,10 @@ export function ParentsSection() {
     <section id="for-parents" className="bg-accent px-6 py-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <div className="flex flex-col gap-7">
-          <h2 className="font-display text-4xl leading-tight text-accent-foreground lg:text-5xl">
+          <h2 className="font-display text-4xl leading-tight text-foreground lg:text-5xl">
             Built for Kids.<br />Loved by Parents.
           </h2>
-          <p className="max-w-sm text-lg leading-relaxed text-accent-foreground/80">
+          <p className="max-w-sm text-lg leading-relaxed text-foreground font-semibold">
             We keep parents in the loop while providing a safe, ad-free
             environment.
           </p>
