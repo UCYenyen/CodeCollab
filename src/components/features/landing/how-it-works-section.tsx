@@ -1,4 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Brain, Gamepad2, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
@@ -86,10 +89,19 @@ function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
 }
 
 export function HowItWorksSection() {
+  const titleRef = useScrollReveal<HTMLDivElement>({ variant: "fadeUp" });
+  const stepsRef = useScrollReveal<HTMLDivElement>({
+    variant: "fadeUp",
+    stagger: 0.2,
+    childrenSelector: ":scope > *",
+    start: "top 80%",
+  });
+  const buttonRef = useScrollReveal<HTMLDivElement>({ variant: "fadeUp", delay: 0.2 });
+
   return (
     <section id="how-it-works" className="bg-muted-background px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-14 text-center">
+        <div ref={titleRef} className="mb-14 text-center">
           <h2 className="font-display text-4xl text-foreground">
             How BrainSpark Works
           </h2>
@@ -98,13 +110,13 @@ export function HowItWorksSection() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-6 md:flex-row">
+        <div ref={stepsRef} className="flex flex-col gap-6 md:flex-row">
           {STEPS.map((step, i) => (
             <StepCard key={step.number} step={step} isLast={i === STEPS.length - 1} />
           ))}
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div ref={buttonRef} className="mt-12 flex justify-center">
           <Button className="h-12 rounded-full px-10 text-2xl font-extrabold shadow-none">
             Start Now
           </Button>

@@ -1,7 +1,10 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Check, TrendingUp, BrainIcon } from "lucide-react";
 import Image from "next/image";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 const TRUST_BADGES = [
   "Free to start",
   "No ads, ever",
@@ -52,10 +55,23 @@ function HeroIllustration() {
 }
 
 export function HeroSection() {
+  const leftRef = useScrollReveal<HTMLDivElement>({
+    variant: "fadeUp",
+    stagger: 0.24,
+    childrenSelector: ":scope > *",
+    immediate: true,
+  });
+
+  const rightRef = useScrollReveal<HTMLDivElement>({
+    variant: "fadeLeft",
+    delay: 0.35,
+    immediate: true,
+  });
+
   return (
     <section className="min-h-[89vh] flex flex-col justify-center items-center bg-muted px-6 pb-20 pt-32">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 lg:grid-cols-2">
-        <div className="flex flex-col gap-7">
+        <div ref={leftRef} className="flex flex-col gap-7">
           <Badge
             variant="outline" className="bg-white border-black border-2 border-r-5 border-b-5 py-3"
           >
@@ -79,7 +95,7 @@ export function HeroSection() {
 
           <div className="flex flex-wrap gap-3">
             <Button className="h-12 rounded-full px-8 text-base font-bold shadow-none">
-              Start Playing Free 🚀
+              Start Playing Free
             </Button>
             <Button
               variant="ghost"
@@ -99,7 +115,9 @@ export function HeroSection() {
           </div>
         </div>
 
-        <HeroIllustration />
+        <div ref={rightRef}>
+          <HeroIllustration />
+        </div>
       </div>
     </section>
   );

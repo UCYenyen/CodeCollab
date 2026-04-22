@@ -1,7 +1,12 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Sparkles } from "lucide-react";
 
 export function CtaSection() {
+  const contentRef = useScrollReveal<HTMLDivElement>({ variant: "scaleUp" });
+
   return (
     <section className="relative overflow-hidden bg-secondary px-6 py-28">
       <span className="absolute left-10 top-8 select-none text-4xl text-foreground/10">
@@ -14,7 +19,7 @@ export function CtaSection() {
         ✦
       </span>
 
-      <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+      <div ref={contentRef} className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground/10">
           <Sparkles className="h-8 w-8 text-foreground/60" />
         </div>

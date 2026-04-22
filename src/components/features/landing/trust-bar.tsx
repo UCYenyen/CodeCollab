@@ -1,4 +1,7 @@
+"use client";
+
 import { FlaskConical, Shield, Star, Users } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import type { LucideIcon } from "lucide-react";
 
 type TrustStat = {
@@ -15,9 +18,16 @@ const TRUST_STATS: TrustStat[] = [
 ];
 
 export function TrustBar() {
+  const statsRef = useScrollReveal<HTMLDivElement>({
+    variant: "fade",
+    stagger: 0.1,
+    childrenSelector: ":scope > *",
+    start: "top 95%",
+  });
+
   return (
     <div className="bg-navy px-6 py-5">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-3">
+      <div ref={statsRef} className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-10 gap-y-3">
         {TRUST_STATS.map(({ icon: Icon, label, color }) => (
           <div key={label} className="flex items-center gap-2">
             <Icon className="h-4 w-4 shrink-0" style={{ color }} />

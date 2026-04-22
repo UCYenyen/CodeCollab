@@ -1,4 +1,7 @@
+"use client";
+
 import { Star } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 type Testimonial = {
   quote: string;
@@ -69,13 +72,20 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 }
 
 export function TestimonialsSection() {
+  const titleRef = useScrollReveal<HTMLHeadingElement>({ variant: "fadeUp" });
+  const cardsRef = useScrollReveal<HTMLDivElement>({
+    variant: "scaleUp",
+    stagger: 0.15,
+    childrenSelector: ":scope > *",
+  });
+
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <h2 className="mb-12 text-center font-display text-4xl text-card">
+        <h2 ref={titleRef} className="mb-12 text-center font-display text-4xl text-card">
           What Parents Say
         </h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div ref={cardsRef} className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {TESTIMONIALS.map((t) => (
             <TestimonialCard key={t.name} testimonial={t} />
           ))}

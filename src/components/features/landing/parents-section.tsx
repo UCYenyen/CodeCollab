@@ -1,4 +1,7 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { BarChart2, Mail, MonitorSmartphone, ShieldCheck } from "lucide-react";
 import { FaPuzzlePiece } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
@@ -139,10 +142,13 @@ function DashboardMockup() {
 }
 
 export function ParentsSection() {
+  const leftRef = useScrollReveal<HTMLDivElement>({ variant: "fadeRight", distance: 60 });
+  const rightRef = useScrollReveal<HTMLDivElement>({ variant: "fadeLeft", distance: 60, delay: 0.15 });
+
   return (
     <section id="for-parents" className="bg-accent px-6 py-24">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
-        <div className="flex flex-col gap-7">
+        <div ref={leftRef} className="flex flex-col gap-7">
           <h2 className="font-display text-4xl leading-tight text-foreground lg:text-5xl">
             Built for Kids.<br />Loved by Parents.
           </h2>
@@ -157,7 +163,7 @@ export function ParentsSection() {
           </div>
         </div>
 
-        <div className="flex justify-center lg:justify-end">
+        <div ref={rightRef} className="flex justify-center lg:justify-end">
           <DashboardMockup />
         </div>
       </div>
