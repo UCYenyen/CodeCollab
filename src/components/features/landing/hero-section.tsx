@@ -41,7 +41,7 @@ function HeroIllustration() {
         </div>
         <div className="absolute border-2 border-black border-b-5 border-r-5 bottom-24 right-8 flex items-center gap-2.5 rounded-lg bg-card px-4 py-3 shadow-lg">
           <div className="flex flex-col gap-2">
-            <div className="flex gap-4 items-center text-green-300">
+            <div className="flex gap-4 items-center text-green-400">
               <BrainIcon/>
             </div>
           </div>

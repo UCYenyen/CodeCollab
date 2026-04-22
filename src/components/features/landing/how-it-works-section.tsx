@@ -105,8 +105,8 @@ export function HowItWorksSection() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <Button className="h-12 rounded-full px-10 text-base font-bold shadow-none">
-            Start Your Free Trial
+          <Button className="h-12 rounded-full px-10 text-2xl font-extrabold shadow-none">
+            Start Now
           </Button>
         </div>
       </div>

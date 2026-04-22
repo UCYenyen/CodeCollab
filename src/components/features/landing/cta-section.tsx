@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 export function CtaSection() {
   return (
-    <section className="relative overflow-hidden bg-yellow-cta px-6 py-28">
+    <section className="relative overflow-hidden bg-secondary px-6 py-28">
       <span className="absolute left-10 top-8 select-none text-4xl text-foreground/10">
         ✦
       </span>
@@ -23,13 +23,13 @@ export function CtaSection() {
           Ready to Spark Some Brilliance?
         </h2>
 
-        <p className="max-w-md text-lg leading-relaxed text-foreground/70">
+        <p className="max-w-md text-lg leading-relaxed text-foreground font-semibold">
           Join thousands of families turning screen time into brain time. Free
           to start, no ads ever.
         </p>
 
-        <Button className="mt-2 h-12 rounded-full px-10 text-base font-bold shadow-none">
-          Start for Free 🚀
+        <Button className="mt-2 h-12 text-2xl rounded-full px-10 font-extrabold shadow-none">
+          Start for Free
         </Button>
       </div>
     </section>
