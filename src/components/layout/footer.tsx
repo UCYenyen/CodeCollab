@@ -12,9 +12,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     heading: "Product",
     links: [
       { label: "Games Library", href: "#" },
-      { label: "Pricing", href: "#" },
       { label: "Research Methodology", href: "#" },
-      { label: "Download App", href: "#" },
     ],
   },
   {
@@ -30,9 +28,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     heading: "Company",
     links: [
       { label: "About Us", href: "#" },
-      { label: "Careers", href: "#" },
       { label: "Contact", href: "#" },
-      { label: "Press", href: "#" },
     ],
   },
 ];
@@ -52,7 +48,7 @@ function FooterColumn({ column }: { column: FooterColumn }) {
           <li key={label}>
             <Link
               href={href}
-              className="text-sm text-muted-foreground transition-colors hover:text-card"
+              className="text-sm text-card/80 transition-colors hover:text-card"
             >
               {label}
             </Link>
@@ -65,7 +61,7 @@ function FooterColumn({ column }: { column: FooterColumn }) {
 
 export function Footer() {
   return (
-    <footer className="bg-dark px-6 pb-6 pt-16">
+    <footer className="bg-dark border-y-3 border-white px-6 pb-6 pt-16">
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4">
           <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
@@ -75,7 +71,7 @@ export function Footer() {
               </div>
               <span className="font-display text-xl text-card">BrainSpark</span>
             </Link>
-            <p className="max-w-45 text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-45 text-sm leading-relaxed text-card/80">
               The brain game kids actually love. Making cognitive development
               fun, safe, and measurable.
             </p>
@@ -85,7 +81,7 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-card/10 text-muted-foreground transition-colors hover:bg-card/20 hover:text-card"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-card/10 text-card/80 transition-colors hover:bg-card/20 hover:text-card"
                 >
                   <Icon className="h-4 w-4" />
                 </Link>
@@ -100,13 +96,9 @@ export function Footer() {
 
         <Separator className="my-8 bg-card/10" />
 
-        <div className="flex flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 text-xs text-card/80 sm:flex-row">
           <p>© 2024 BrainSpark Inc. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-              COPPA Compliant
-            </span>
             <Link href="#" className="transition-colors hover:text-card">
               Privacy Policy
             </Link>

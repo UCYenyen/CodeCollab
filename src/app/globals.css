@@ -8,6 +8,10 @@
   font-display: swap;
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #1a1a2e;

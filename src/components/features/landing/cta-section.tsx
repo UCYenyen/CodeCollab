@@ -20,8 +20,10 @@ export function CtaSection() {
       </span>
 
       <div ref={contentRef} className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-foreground/10">
-          <Sparkles className="h-8 w-8 text-foreground/60" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-background border-2 border-black border-b-4 border-r-4 p-12">
+          <div className="flex bg-gray-200 rounded-full p-2.5 justify-center items-center">
+            <Sparkles className="h-12 w-12 text-foreground/60" />
+          </div>
         </div>
 
         <h2 className="font-display text-4xl leading-tight text-foreground lg:text-5xl">
