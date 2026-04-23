@@ -11,7 +11,28 @@ export const signUpSchema = z.object({
   confirmPassword: z.string().min(6, { message: 'Password must be at least 6 characters long' }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
-  path: ["confirmPassword"], // path of error
+  path: ["confirmPassword"],
+});
+
+export const parentAccountSchema = z.object({
+  fullName: z.string().min(2, { message: 'Full name must be at least 2 characters' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+  confirmPassword: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+  agreeTerms: z.boolean().refine((v) => v === true, { message: 'You must agree to the Terms of Service' }),
+  agreeAge: z.boolean().refine((v) => v === true, { message: 'You must confirm you are 18 or older' }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
+});
+
+export const childProfileSchema = z.object({
+  childName: z.string().min(2, { message: 'Child name must be at least 2 characters' }),
+  age: z.string().min(1, { message: 'Please select an age' }),
+  dateOfBirth: z.string().optional(),
+  avatar: z.string().min(1, { message: 'Please select an avatar' }),
+  username: z.string().min(3, { message: 'Username must be at least 3 characters' }).max(20),
+  difficulty: z.string().min(1, { message: 'Please select a difficulty' }),
 });
 
 export const forgotPasswordSchema = z.object({
@@ -24,5 +45,7 @@ export const refreshTokenSchema = z.object({
 
 export type SignInSchema = z.infer<typeof signInSchema>;
 export type SignUpSchema = z.infer<typeof signUpSchema>;
+export type ParentAccountSchema = z.infer<typeof parentAccountSchema>;
+export type ChildProfileSchema = z.infer<typeof childProfileSchema>;
 export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
 export type RefreshTokenSchema = z.infer<typeof refreshTokenSchema>;

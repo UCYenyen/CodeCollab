@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
 import type { EmailOtpType } from '@supabase/supabase-js'
 
 const ALLOWED_OTP_TYPES = [
@@ -16,25 +17,60 @@ function isAllowedOtpType(type: string | null): type is AllowedOtpType {
   return type !== null && ALLOWED_OTP_TYPES.includes(type as AllowedOtpType)
 }
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url)
+async function createCallbackClient() {
+  const cookieStore = await cookies()
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll: () => cookieStore.getAll(),
+        setAll: (cookiesToSet) => {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
+}
 
+function getOnboardingRedirect(step: number | undefined, isSignup: boolean, baseUrl: string): string {
+  if (isSignup || step === 1) return `${baseUrl}/auth/sign-up/child-profile`
+  if (step === 2) return `${baseUrl}/auth/sign-up/complete`
+  return `${baseUrl}/`
+}
+
+export async function GET(req: Request) {
+  const { searchParams, origin } = new URL(req.url)
+
+  const code = searchParams.get('code')
   const tokenHash = searchParams.get('token_hash')
   const type = searchParams.get('type')
+  const isSignup = searchParams.get('signup') === 'true'
 
-  if (!tokenHash || !isAllowedOtpType(type)) {
-    return NextResponse.redirect(new URL('/auth/error?reason=invalid_callback', req.url))
+  if (code) {
+    const supabase = await createCallbackClient()
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+    if (error) {
+      return NextResponse.redirect(new URL('/auth/error?reason=oauth_failed', req.url))
+    }
+    const step = data.user?.user_metadata?.onboarding_step
+    return NextResponse.redirect(getOnboardingRedirect(step, isSignup, origin))
   }
 
-  const supabase = await createClient()
-  const { error } = await supabase.auth.verifyOtp({
-    type,
-    token_hash: tokenHash,
-  })
-
-  if (error) {
-    return NextResponse.redirect(new URL('/auth/error?reason=otp_verification_failed', req.url))
+  if (tokenHash && isAllowedOtpType(type)) {
+    const supabase = await createCallbackClient()
+    const { data, error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash })
+    if (error) {
+      return NextResponse.redirect(new URL('/auth/error?reason=otp_verification_failed', req.url))
+    }
+    const step = data.user?.user_metadata?.onboarding_step
+    if (type === 'signup') {
+      return NextResponse.redirect(getOnboardingRedirect(step, true, origin))
+    }
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
-  return NextResponse.redirect(new URL('/success', req.url))
+  return NextResponse.redirect(new URL('/auth/error?reason=invalid_callback', req.url))
 }
