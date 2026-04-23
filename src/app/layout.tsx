@@ -30,9 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full antialiased", nunito.variable, geistMono.variable)}
+      className={cn("h-full antialiased overflow-x-hidden", nunito.variable, geistMono.variable)}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         <Toaster
           toastOptions={{ descriptionClassName: "text-card-foreground" }}
           theme="light"

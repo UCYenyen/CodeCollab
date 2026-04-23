@@ -146,7 +146,7 @@ export function ParentsSection() {
   const rightRef = useScrollReveal<HTMLDivElement>({ variant: "fadeLeft", distance: 60, delay: 0.15 });
 
   return (
-    <section id="for-parents" className="bg-accent px-6 py-24">
+    <section id="for-parents" className="bg-accent px-6 py-24 overflow-x-hidden">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <div ref={leftRef} className="flex flex-col gap-7">
           <h2 className="font-display text-4xl leading-tight text-foreground lg:text-5xl">
