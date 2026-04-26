@@ -115,13 +115,17 @@ export function SignInForm() {
           </Button>
         </form>
 
-        <div className="relative my-5 flex items-center gap-4">
-          <div className="flex-1 border-t border-border" />
-          <span className="text-sm text-muted-foreground">or</span>
-          <div className="flex-1 border-t border-border" />
-        </div>
+        {loginType === "parent" && (
+          <>
+            <div className="relative my-5 flex items-center gap-4">
+              <div className="flex-1 border-t border-border" />
+              <span className="text-sm text-muted-foreground">or</span>
+              <div className="flex-1 border-t border-border" />
+            </div>
 
-        <SignInGoogleButton onClick={signInWithGoogle} disabled={isLoading} />
+            <SignInGoogleButton onClick={signInWithGoogle} disabled={isLoading} />
+          </>
+        )}
       </div>
 
       <div className="mt-6 text-center">

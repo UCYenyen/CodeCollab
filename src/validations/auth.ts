@@ -32,7 +32,12 @@ export const childProfileSchema = z.object({
   dateOfBirth: z.string().optional(),
   avatar: z.string().min(1, { message: 'Please select an avatar' }),
   childEmail: z.string().email({ message: 'Invalid email address' }),
+  childPassword: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+  confirmChildPassword: z.string().min(8, { message: 'Password must be at least 8 characters' }),
   difficulty: z.string().min(1, { message: 'Please select a difficulty' }),
+}).refine((data) => data.childPassword === data.confirmChildPassword, {
+  message: "Passwords don't match",
+  path: ['confirmChildPassword'],
 });
 
 export const forgotPasswordSchema = z.object({

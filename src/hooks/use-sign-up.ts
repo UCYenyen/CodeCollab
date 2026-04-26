@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { parentAccountSchema, type ParentAccountSchema } from "@/validations/auth";
+import {
+  parentAccountSchema,
+  type ParentAccountSchema,
+} from "@/validations/auth";
 import { createClient } from "@/lib/supabase/client";
 
 export function useSignUp() {
@@ -20,30 +23,23 @@ export function useSignUp() {
 
   const onSubmit = form.handleSubmit(async (data) => {
     setIsLoading(true);
-    const { data: signUpData, error } = await supabase.auth.signUp({
-      email: data.email,
-      password: data.password,
-      options: {
-        data: { full_name: data.fullName, onboarding_step: 1 },
-      },
+
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        fullName: data.fullName,
+      }),
     });
 
-    if (error) {
+    const json = await res.json() as { error?: string; userId?: string; message?: string };
+
+    if (!res.ok) {
       setIsLoading(false);
-      toast.error(error.message);
+      toast.error(json.error ?? "Sign up failed. Please try again.");
       return;
-    }
-
-    if (signUpData.user) {
-      const { error: insertError } = await supabase
-        .from("parents")
-        .insert({ id: signUpData.user.id });
-
-      if (insertError) {
-        setIsLoading(false);
-        toast.error(insertError.message);
-        return;
-      }
     }
 
     setIsLoading(false);

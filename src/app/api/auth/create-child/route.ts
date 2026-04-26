@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const { childName, age, dateOfBirth, avatar, childEmail, difficulty } = result.data;
+    const { childName, age, dateOfBirth, avatar, childEmail, childPassword, difficulty } = result.data;
 
     const serverClient = await createClient();
     const { data: { user: parentUser }, error: sessionError } = await serverClient.auth.getUser();
@@ -25,6 +25,7 @@ export async function POST(req: Request) {
     const adminClient = createAdminClient();
     const { data: { user: childUser }, error: createError } = await adminClient.auth.admin.createUser({
       email: childEmail,
+      password: childPassword,
       email_confirm: true,
       user_metadata: {
         role: "child",
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: createError?.message ?? "Failed to create child user" }, { status: 400 });
     }
 
-    const { error: insertError } = await serverClient
+    const { error: insertError } = await adminClient
       .from("children")
       .insert({ id: childUser.id, coins: 0 });
 

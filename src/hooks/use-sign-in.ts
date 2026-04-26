@@ -25,17 +25,36 @@ export function useSignIn() {
       email: data.email,
       password: data.password,
     });
-    setIsLoading(false);
 
     if (error) {
+      setIsLoading(false);
       toast.error(error.message);
       return;
     }
 
+    // Role enforcement: check that the signed-in account matches the selected login tab.
+    const role = authData.user?.user_metadata?.role as string | undefined;
+    const isChildAccount = role === "child";
+
+    if (loginType === "child" && !isChildAccount) {
+      await supabase.auth.signOut();
+      setIsLoading(false);
+      toast.error("No child account found with these credentials.");
+      return;
+    }
+
+    if (loginType === "parent" && isChildAccount) {
+      await supabase.auth.signOut();
+      setIsLoading(false);
+      toast.error("No parent account found with these credentials.");
+      return;
+    }
+
+    setIsLoading(false);
     toast.success("Successfully signed in");
     router.refresh();
 
-    const step = authData.user?.user_metadata?.onboarding_step;
+    const step = authData.user?.user_metadata?.onboarding_step as number | undefined;
     if (step === 1) {
       router.push("/auth/sign-up/child-profile");
     } else if (step === 2) {
@@ -46,6 +65,12 @@ export function useSignIn() {
   });
 
   const signInWithGoogle = async () => {
+    // Google OAuth is only available for parent accounts.
+    // Children must sign in with email + password.
+    if (loginType === "child") {
+      toast.error("Children must sign in with email and password.");
+      return;
+    }
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

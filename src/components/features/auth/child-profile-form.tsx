@@ -1,11 +1,12 @@
 "use client";
 
-import { ArrowLeft, Mail } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useChildProfile } from "@/hooks/use-child-profile";
+import { usePasswordVisibility } from "@/hooks/use-password-visibility";
 import { AvatarPicker } from "./avatar-picker";
 import { DifficultyPicker } from "./difficulty-picker";
 
@@ -13,6 +14,7 @@ const AGE_OPTIONS = Array.from({ length: 13 }, (_, i) => i + 5);
 
 export function ChildProfileForm() {
   const { form, isLoading, onSubmit } = useChildProfile();
+  const { showPassword, toggle: togglePassword } = usePasswordVisibility();
   const {
     register,
     watch,
@@ -118,6 +120,49 @@ export function ChildProfileForm() {
             </div>
             <p className="text-xs text-muted-foreground">This will be used for your child&apos;s login.</p>
             {errors.childEmail && <p className="text-sm text-destructive">{errors.childEmail.message}</p>}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="childPassword" className="font-bold text-navy">Child&apos;s Password</Label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="childPassword"
+                type={showPassword ? "text" : "password"}
+                placeholder="••••••••"
+                autoCapitalize="none"
+                autoComplete="new-password"
+                disabled={isLoading}
+                className="rounded-xl border-2 border-border bg-cream pl-10 pr-10 focus:border-primary"
+                {...register("childPassword")}
+              />
+              <button
+                type="button"
+                onClick={togglePassword}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
+            {errors.childPassword && <p className="text-sm text-destructive">{errors.childPassword.message}</p>}
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="confirmChildPassword" className="font-bold text-navy">Confirm Child&apos;s Password</Label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                id="confirmChildPassword"
+                type="password"
+                placeholder="••••••••"
+                autoCapitalize="none"
+                autoComplete="new-password"
+                disabled={isLoading}
+                className="rounded-xl border-2 border-border bg-cream pl-10 focus:border-primary"
+                {...register("confirmChildPassword")}
+              />
+            </div>
+            {errors.confirmChildPassword && <p className="text-sm text-destructive">{errors.confirmChildPassword.message}</p>}
           </div>
 
           <div className="space-y-2">
