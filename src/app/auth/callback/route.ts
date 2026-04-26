@@ -63,8 +63,6 @@ export async function GET(req: Request) {
       );
     }
 
-    // For Google OAuth signups, create the parent row server-side using the
-    // admin client so it bypasses RLS. upsert+ignoreDuplicates is idempotent.
     if (isSignup && data.user) {
       const admin = createAdminClient();
       const { error: insertError } = await admin
