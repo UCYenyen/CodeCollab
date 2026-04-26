@@ -5,7 +5,6 @@ import { HowItWorksSection } from "@/components/features/landing/how-it-works-se
 import { ParentsSection } from "@/components/features/landing/parents-section";
 import { TestimonialsSection } from "@/components/features/landing/testimonials-section";
 import { CtaSection } from "@/components/features/landing/cta-section";
-import { Footer } from "@/components/layout/footer";
 import { WaveDivider } from "@/components/features/landing/wave-divider";
 
 export default function Home() {
@@ -30,7 +29,6 @@ export default function Home() {
 
         <TestimonialsSection />
         <CtaSection />
-        <Footer />
       </main>
     </>
   );
