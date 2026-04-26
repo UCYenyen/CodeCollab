@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { Sparkles, X, Globe, Mail } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-
-type FooterColumn = {
-  heading: string;
-  links: { label: string; href: string }[];
-};
+import type { FooterColumn } from "@/types/landing";
 
 const FOOTER_COLUMNS: FooterColumn[] = [
   {

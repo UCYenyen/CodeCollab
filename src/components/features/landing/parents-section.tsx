@@ -5,15 +5,7 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { BarChart2, Mail, MonitorSmartphone, ShieldCheck } from "lucide-react";
 import { FaPuzzlePiece } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
-import type { LucideIcon } from "lucide-react";
-import { ReactNode } from "react";
-
-type Feature = {
-  icon: LucideIcon;
-  iconBg: string;
-  title: string;
-  description: string;
-};
+import type { Feature, DomainRow } from "@/types/landing";
 
 const FEATURES: Feature[] = [
   {
@@ -41,15 +33,6 @@ const FEATURES: Feature[] = [
     description: "See progress across 5 distinct brain areas.",
   },
 ];
-
-type DomainRow = {
-  emoji: ReactNode;
-  label: string;
-  value: string;
-  valueColor: string;
-  barColor: string;
-  barWidth: string;
-};
 
 const DOMAIN_ROWS: DomainRow[] = [
   {

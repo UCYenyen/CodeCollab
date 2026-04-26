@@ -2,14 +2,7 @@
 
 import { Star } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-
-type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  avatar: string;
-  cardBackground: string;
-};
+import type { Testimonial } from "@/types/landing";
 
 const TESTIMONIALS: Testimonial[] = [
   {

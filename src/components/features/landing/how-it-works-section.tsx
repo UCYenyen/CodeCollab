@@ -4,17 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { Brain, Gamepad2, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
-
-type Step = {
-  number: string;
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  cardBg: string;
-  numberBg: string;
-  numberText: string;
-};
+import type { Step } from "@/types/landing";
 
 const STEPS: Step[] = [
   {

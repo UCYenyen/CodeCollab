@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/layout/navbar";
 import { HeroSection } from "@/components/features/landing/hero-section";
 import { FeaturesBar } from "@/components/features/landing/features-bar";
 import { TrustBar } from "@/components/features/landing/trust-bar";
@@ -12,8 +11,6 @@ import { WaveDivider } from "@/components/features/landing/wave-divider";
 export default function Home() {
   return (
     <>
-      <Navbar />
-
       <main className="flex flex-col">
         <HeroSection />
         <FeaturesBar />

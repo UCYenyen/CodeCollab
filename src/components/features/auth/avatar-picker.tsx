@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import type { AvatarPickerProps } from "@/types/auth-components";
 
 const AVATARS = [
   { id: "space", emoji: "🚀", label: "Space" },
@@ -8,11 +9,6 @@ const AVATARS = [
   { id: "artist", emoji: "🎨", label: "Artist" },
   { id: "athlete", emoji: "🏃", label: "Athlete" },
 ];
-
-interface AvatarPickerProps {
-  value: string;
-  onChange: (value: string) => void;
-}
 
 export function AvatarPicker({ value, onChange }: AvatarPickerProps) {
   return (

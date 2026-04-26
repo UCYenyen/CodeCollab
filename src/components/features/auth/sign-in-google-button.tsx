@@ -1,8 +1,4 @@
-interface GoogleButtonProps {
-  onClick: () => void;
-  disabled?: boolean;
-  label?: string;
-}
+import type { GoogleButtonProps } from "@/types/auth-components";
 
 export function SignInGoogleButton({ onClick, disabled, label = "Sign in with Google" }: GoogleButtonProps) {
   return (

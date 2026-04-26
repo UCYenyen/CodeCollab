@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export function SignInLeftPanel() {
@@ -6,11 +6,10 @@ export function SignInLeftPanel() {
     <div className="relative hidden h-full flex-col bg-navy p-10 text-white lg:flex">
       <div className="flex items-center gap-2">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
-          <Zap className="h-5 w-5 fill-white text-white" />
+          <Sparkles className="h-4 w-4 text-primary-foreground" />
         </div>
-        <span className="text-xl font-bold">
-          <span className="text-white">Brain</span>
-          <span className="text-primary">Spark</span>
+        <span className="text-xl md:text-3xl font-bold">
+           <span className="font-display text-card">Brain<span className="text-primary">Spark</span></span>
         </span>
       </div>
 

@@ -2,13 +2,7 @@
 
 import { FlaskConical, Shield, Star, Users } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import type { LucideIcon } from "lucide-react";
-
-type TrustStat = {
-  icon: LucideIcon;
-  label: string;
-  color: string;
-};
+import type { TrustStat } from "@/types/landing";
 
 const TRUST_STATS: TrustStat[] = [
   { icon: Users, label: "Trusted by 10,000+ families", color: "#FFE66D" },

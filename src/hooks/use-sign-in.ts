@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { signInSchema, type SignInSchema } from "@/validations/auth";
 import { createClient } from "@/lib/supabase/client";
-
-export type LoginType = "parent" | "child";
+import type { LoginType } from "@/types/auth-components";
 
 export function useSignIn() {
   const router = useRouter();

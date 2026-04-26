@@ -42,8 +42,8 @@ export function Navbar() {
         ))}
       </div>
 
-      <Button className="rounded-full text-md px-5 font-bold shadow-none">
-        Try For Free →
+      <Button asChild className="rounded-full text-md px-5 font-bold shadow-none">
+        <Link href="/auth/sign-in">Try For Free →</Link>
       </Button>
     </nav>
   );

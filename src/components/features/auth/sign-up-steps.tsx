@@ -1,14 +1,11 @@
 import { Check } from "lucide-react";
+import type { SignUpStepsProps } from "@/types/auth-components";
 
 const STEPS = [
   { number: 1, line1: "Parent", line2: "Account" },
   { number: 2, line1: "Child", line2: "Profile" },
   { number: 3, line1: "All", line2: "Done!" },
 ];
-
-interface SignUpStepsProps {
-  currentStep: 1 | 2 | 3;
-}
 
 export function SignUpSteps({ currentStep }: SignUpStepsProps) {
   return (

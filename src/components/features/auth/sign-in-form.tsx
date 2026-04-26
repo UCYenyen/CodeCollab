@@ -23,8 +23,8 @@ export function SignInForm() {
     <div className="w-full max-w-md">
       <div className="mb-8 text-center">
         <h1 className="font-display text-5xl font-bold text-navy">Welcome Back!</h1>
-        <p className="mt-2 text-muted-foreground">
-          Sign in to see your child&apos;s progress 📊
+        <p className="mt-2 text-foreground">
+          Sign in to see your child&apos;s progress
         </p>
       </div>
 

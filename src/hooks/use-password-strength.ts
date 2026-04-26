@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-
-export type PasswordStrength = "empty" | "weak" | "fair" | "strong" | "very-strong";
+import type { PasswordStrength } from "@/types/auth-components";
 
 export function usePasswordStrength(password: string) {
   return useMemo(() => {

@@ -3,35 +3,7 @@
 import { useRef, useLayoutEffect, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-export type RevealVariant =
-  | "fadeUp"
-  | "fadeDown"
-  | "fadeLeft"
-  | "fadeRight"
-  | "fade"
-  | "scaleUp";
-
-export type ScrollRevealOptions = {
-  variant?: RevealVariant;
-  /** Translation distance in px (default: 50) */
-  distance?: number;
-  /** Animation duration in seconds (default: 0.75) */
-  duration?: number;
-  ease?: string;
-  /** Delay before animation starts in seconds (default: 0) */
-  delay?: number;
-  /** Stagger time between children in seconds (default: 0) */
-  stagger?: number;
-  /** CSS selector for children to stagger — e.g. ":scope > *" */
-  childrenSelector?: string;
-  /** ScrollTrigger start position (default: "top 85%") */
-  start?: string;
-  /** Animate only the first time the element enters view (default: false) */
-  once?: boolean;
-  /** Skip ScrollTrigger and animate immediately on mount (for above-the-fold elements) */
-  immediate?: boolean;
-};
+import type { RevealVariant, ScrollRevealOptions } from "@/types/animations";
 
 const VARIANT_FROM: Record<RevealVariant, (d: number) => gsap.TweenVars> = {
   fadeUp:    (d) => ({ opacity: 0, y: d }),

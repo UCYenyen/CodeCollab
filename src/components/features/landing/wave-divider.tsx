@@ -1,9 +1,5 @@
 import { cn } from "@/lib/utils";
-
-type WaveDividerProps = {
-  className?: string;
-  flip?: boolean;
-};
+import type { WaveDividerProps } from "@/types/landing";
 
 export function WaveDivider({ className, flip = false }: WaveDividerProps) {
   return (

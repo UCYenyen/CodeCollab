@@ -1,8 +1,5 @@
 import { usePasswordStrength } from "@/hooks/use-password-strength";
-
-interface PasswordStrengthBarProps {
-  password: string;
-}
+import type { PasswordStrengthBarProps } from "@/types/auth-components";
 
 export function PasswordStrengthBar({ password }: PasswordStrengthBarProps) {
   const { strength, label, segments } = usePasswordStrength(password);

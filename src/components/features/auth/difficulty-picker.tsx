@@ -1,15 +1,11 @@
 import { Check } from "lucide-react";
+import type { DifficultyPickerProps } from "@/types/auth-components";
 
 const DIFFICULTIES = [
   { id: "starting", emoji: "🐣", label: "Just Starting" },
   { id: "ready", emoji: "🚀", label: "Ready to Play" },
   { id: "challenge", emoji: "🏆", label: "Challenge Me!" },
 ];
-
-interface DifficultyPickerProps {
-  value: string;
-  onChange: (value: string) => void;
-}
 
 export function DifficultyPicker({ value, onChange }: DifficultyPickerProps) {
   return (

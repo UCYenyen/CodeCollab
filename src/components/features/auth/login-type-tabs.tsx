@@ -1,9 +1,4 @@
-import type { LoginType } from "@/hooks/use-sign-in";
-
-interface LoginTypeTabsProps {
-  activeType: LoginType;
-  onTypeChange: (type: LoginType) => void;
-}
+import type { LoginTypeTabsProps } from "@/types/auth-components";
 
 export function LoginTypeTabs({ activeType, onTypeChange }: LoginTypeTabsProps) {
   return (
