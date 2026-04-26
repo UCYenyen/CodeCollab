@@ -31,7 +31,7 @@ export const childProfileSchema = z.object({
   age: z.string().min(1, { message: 'Please select an age' }),
   dateOfBirth: z.string().optional(),
   avatar: z.string().min(1, { message: 'Please select an avatar' }),
-  username: z.string().min(3, { message: 'Username must be at least 3 characters' }).max(20),
+  childEmail: z.string().email({ message: 'Invalid email address' }),
   difficulty: z.string().min(1, { message: 'Please select a difficulty' }),
 });
 

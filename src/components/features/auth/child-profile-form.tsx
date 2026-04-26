@@ -1,12 +1,11 @@
 "use client";
 
-import { ArrowLeft, Gamepad2 } from "lucide-react";
+import { ArrowLeft, Mail } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useChildProfile } from "@/hooks/use-child-profile";
-import { useUsernameAvailability } from "@/hooks/use-username-availability";
 import { AvatarPicker } from "./avatar-picker";
 import { DifficultyPicker } from "./difficulty-picker";
 
@@ -21,11 +20,8 @@ export function ChildProfileForm() {
     formState: { errors },
   } = form;
 
-  const username = watch("username") ?? "";
   const avatar = watch("avatar");
   const difficulty = watch("difficulty");
-
-  const { isAvailable, isChecking } = useUsernameAvailability(username);
 
   return (
     <div className="w-full max-w-lg">
@@ -105,33 +101,23 @@ export function ChildProfileForm() {
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="username" className="font-bold text-navy">Child&apos;s Username</Label>
+            <Label htmlFor="childEmail" className="font-bold text-navy">Child&apos;s Email</Label>
             <div className="relative">
-              <Gamepad2 className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                id="username"
-                type="text"
-                placeholder="SuperLiam8"
+                id="childEmail"
+                type="email"
+                placeholder="child@example.com"
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
                 disabled={isLoading}
-                className="rounded-xl border-2 border-border bg-cream pl-10 pr-24 focus:border-primary"
-                {...register("username")}
+                className="rounded-xl border-2 border-border bg-cream pl-10 focus:border-primary"
+                {...register("childEmail")}
               />
-              {username.length >= 3 && (
-                <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  {isChecking ? (
-                    <span className="text-xs text-muted-foreground">Checking...</span>
-                  ) : isAvailable ? (
-                    <span className="flex items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">
-                      ✓ Available!
-                    </span>
-                  ) : (
-                    <span className="text-xs font-bold text-destructive">Taken</span>
-                  )}
-                </div>
-              )}
             </div>
-            <p className="text-xs text-muted-foreground">This is what your child will see when they log in.</p>
-            {errors.username && <p className="text-sm text-destructive">{errors.username.message}</p>}
+            <p className="text-xs text-muted-foreground">This will be used for your child&apos;s login.</p>
+            {errors.childEmail && <p className="text-sm text-destructive">{errors.childEmail.message}</p>}
           </div>
 
           <div className="space-y-2">

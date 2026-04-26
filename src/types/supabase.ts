@@ -14,6 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
+      children: {
+        Row: {
+          coins: number | null
+          created_at: string
+          id: string
+        }
+        Insert: {
+          coins?: number | null
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          coins?: number | null
+          created_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
       games: {
         Row: {
           created_at: string
@@ -35,66 +53,60 @@ export type Database = {
         }
         Relationships: []
       }
-      history: {
+      histories: {
         Row: {
-          coins_recieved: number | null
+          "coins_ received": number | null
           created_at: string
           id: number
+          refrence_children: string | null
           refrence_game: number | null
-          refrence_player: number | null
           suggestion: string | null
         }
         Insert: {
-          coins_recieved?: number | null
+          "coins_ received"?: number | null
           created_at?: string
           id?: number
+          refrence_children?: string | null
           refrence_game?: number | null
-          refrence_player?: number | null
           suggestion?: string | null
         }
         Update: {
-          coins_recieved?: number | null
+          "coins_ received"?: number | null
           created_at?: string
           id?: number
+          refrence_children?: string | null
           refrence_game?: number | null
-          refrence_player?: number | null
           suggestion?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "history_refrence_game_fkey"
+            foreignKeyName: "histories_refrence_children_fkey"
+            columns: ["refrence_children"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "histories_refrence_game_fkey"
             columns: ["refrence_game"]
             isOneToOne: false
             referencedRelation: "games"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "history_refrence_player_fkey"
-            columns: ["refrence_player"]
-            isOneToOne: false
-            referencedRelation: "player_datas"
-            referencedColumns: ["id"]
-          },
         ]
       }
-      player_datas: {
+      parents: {
         Row: {
-          coins: number | null
           created_at: string
-          id: number
-          refrence_user: string | null
+          id: string
         }
         Insert: {
-          coins?: number | null
           created_at?: string
-          id?: number
-          refrence_user?: string | null
+          id: string
         }
         Update: {
-          coins?: number | null
           created_at?: string
-          id?: number
-          refrence_user?: string | null
+          id?: string
         }
         Relationships: []
       }

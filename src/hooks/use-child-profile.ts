@@ -6,12 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { childProfileSchema, type ChildProfileSchema } from "@/validations/auth";
-import { createClient } from "@/lib/supabase/client";
 
 export function useChildProfile() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const supabase = createClient();
 
   const form = useForm<ChildProfileSchema>({
     resolver: zodResolver(childProfileSchema),
@@ -21,31 +19,17 @@ export function useChildProfile() {
   const onSubmit = form.handleSubmit(async (data) => {
     setIsLoading(true);
 
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    if (userError || !user) {
-      toast.error("Session expired. Please sign in again.");
-      router.push("/auth/sign-in");
-      return;
-    }
-
-    const { error } = await supabase.auth.updateUser({
-      data: {
-        child_profile: {
-          name: data.childName,
-          age: data.age,
-          dateOfBirth: data.dateOfBirth,
-          avatar: data.avatar,
-          username: data.username,
-          difficulty: data.difficulty,
-        },
-        onboarding_step: 2,
-      },
+    const res = await fetch("/api/auth/create-child", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
 
     setIsLoading(false);
 
-    if (error) {
-      toast.error(error.message);
+    const json = await res.json() as { error?: string };
+    if (!res.ok) {
+      toast.error(json.error ?? "Something went wrong.");
       return;
     }
 

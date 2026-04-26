@@ -20,20 +20,33 @@ export function useSignUp() {
 
   const onSubmit = form.handleSubmit(async (data) => {
     setIsLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data: signUpData, error } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
         data: { full_name: data.fullName, onboarding_step: 1 },
       },
     });
-    setIsLoading(false);
 
     if (error) {
+      setIsLoading(false);
       toast.error(error.message);
       return;
     }
 
+    if (signUpData.user) {
+      const { error: insertError } = await supabase
+        .from("parents")
+        .insert({ id: signUpData.user.id });
+
+      if (insertError) {
+        setIsLoading(false);
+        toast.error(insertError.message);
+        return;
+      }
+    }
+
+    setIsLoading(false);
     router.push("/auth/sign-up/child-profile");
   });
 
