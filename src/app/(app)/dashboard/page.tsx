@@ -44,6 +44,8 @@ export default async function DashboardPage() {
 
   if (!parentUser) redirect("/auth/sign-in");
 
+  if (parentUser.user_metadata.onboarding_step == 1) redirect("/onboarding");
+
   const adminClient = createAdminClient();
 
   const {
