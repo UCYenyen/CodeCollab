@@ -1,19 +1,19 @@
 "use client";
 
 import { Bell } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
+import { NavAccountButton } from "@/components/layout/nav-account-button";
+import { useNavbarUser } from "@/hooks/use-navbar-user";
 interface DashboardHeaderProps {
   parentName: string;
-  parentInitials: string;
 }
 
-export function DashboardHeader({ parentName, parentInitials }: DashboardHeaderProps) {
+export function DashboardHeader({ parentName }: DashboardHeaderProps) {
+  const user = useNavbarUser();
   return (
     <div className="flex items-start justify-between">
       <div>
-        <h1 className="font-display text-3xl font-bold text-navy">
-          Welcome back, {parentName}! 👋
+        <h1 className="font-display text-3xl text-navy">
+          Welcome back, <span className="text-primary">{parentName}</span>
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Here&apos;s how your little sparks are doing today.
@@ -30,11 +30,7 @@ export function DashboardHeader({ parentName, parentInitials }: DashboardHeaderP
           </span>
         </div>
 
-        <Avatar className="h-10 w-10 border-2 border-navy">
-          <AvatarFallback className="bg-primary text-sm font-bold text-white">
-            {parentInitials}
-          </AvatarFallback>
-        </Avatar>
+        {user && <NavAccountButton user={user} />}
       </div>
     </div>
   );

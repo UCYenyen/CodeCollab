@@ -17,7 +17,7 @@ export type SubjectStatData = {
   subject: string;
   score: number;
   change: number;
-  icon: string;
+  icon: React.ReactNode;
   bgColor: string;
   iconColor: string;
 };

@@ -136,10 +136,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8 px-8 py-8">
-      <DashboardHeader
-        parentName={parentName}
-        parentInitials={getInitials(parentName)}
-      />
+      <DashboardHeader parentName={parentName} />
       <ChildrenSection children={children} />
       <LearningProgress
         weeklyData={weeklyData}

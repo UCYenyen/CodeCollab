@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProgressChart } from "./progress-chart";
 import { SubjectStatCard } from "./subject-stat-card";
+import { BookAIcon, LucideArchive } from "lucide-react";
 import type {
   ChartDataPoint,
   ChildDashboardData,
@@ -18,7 +19,7 @@ const SUBJECT_STATS: SubjectStatData[] = [
     subject: "Math Master",
     score: 92,
     change: 5,
-    icon: "🧮",
+    icon: <BookAIcon></BookAIcon>,
     bgColor: "bg-[#e0f9f5]",
     iconColor: "bg-accent/20 text-accent",
   },
@@ -27,7 +28,7 @@ const SUBJECT_STATS: SubjectStatData[] = [
     subject: "Reading Skills",
     score: 78,
     change: 12,
-    icon: "📖",
+    icon: <LucideArchive></LucideArchive>,
     bgColor: "bg-[#fff0ea]",
     iconColor: "bg-primary/20 text-primary",
   },
@@ -51,7 +52,7 @@ export function LearningProgress({
       <div className="rounded-2xl border-2 border-navy bg-white shadow-[4px_4px_0px_0px_var(--navy)]">
         <div className="flex items-center justify-between border-b-2 border-border px-6 py-4">
           <div>
-            <h2 className="font-display text-xl font-bold text-navy">
+            <h2 className="font-display text-xl text-navy">
               Learning Progress
             </h2>
             <p className="text-xs text-muted-foreground">
@@ -96,7 +97,7 @@ export function LearningProgress({
                 <SubjectStatCard key={stat.id} stat={stat} />
               ))}
 
-              <Button className="mt-auto gap-2 rounded-xl border-2 border-navy bg-navy py-5 text-xs font-bold text-white shadow-[3px_3px_0px_0px_var(--accent)] transition-all hover:bg-navy/90 hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5">
+              <Button className="mt-auto gap-2 rounded-xl border-2 border-r-4 border-b-4 bg-primary py-5 text-xs font-bold text-white transition-all hover:bg-primary/90 hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5">
                 Detailed Analysis
                 <ArrowRight className="h-3.5 w-3.5" />
               </Button>

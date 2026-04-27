@@ -27,7 +27,7 @@ export function ChildProfileLeftPanel() {
 
           <div className="absolute left-32 top-0">
             <div className="relative rounded-2xl bg-white px-4 py-2 shadow-md">
-              <span className="text-sm font-bold text-navy">Welcome back! 👋</span>
+              <span className="text-sm font-bold text-navy">Welcome back!</span>
               <div className="absolute -bottom-2 left-6 h-0 w-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent border-t-white" />
             </div>
           </div>

@@ -9,7 +9,7 @@ interface ChildrenSectionProps {
 export function ChildrenSection({ children }: ChildrenSectionProps) {
   return (
     <section>
-      <h2 className="mb-4 font-display text-xl font-bold text-navy">
+      <h2 className="mb-4 font-display text-xl text-navy">
         My Children
       </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

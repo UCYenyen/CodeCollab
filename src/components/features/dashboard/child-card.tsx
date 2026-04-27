@@ -53,7 +53,7 @@ export function ChildCard({ child }: ChildCardProps) {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-1">
               <div>
-                <p className="font-display text-lg font-bold text-navy leading-tight">
+                <p className="font-display text-lg text-navy leading-tight">
                   {child.name}
                 </p>
                 <p className="text-xs text-muted-foreground">

@@ -17,17 +17,16 @@ export function SubjectStatCard({ stat }: SubjectStatCardProps) {
       <div className="flex items-start justify-between gap-2">
         <div
           className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-xl text-base",
+            "flex h-10 w-10 items-center justify-center rounded-xl text-base",
             stat.iconColor,
           )}
         >
           {stat.icon}
         </div>
-        <div className="h-6 w-6 rounded-lg opacity-30" style={{ background: "currentColor" }} />
       </div>
       <p className="mt-2 text-sm font-bold text-navy">{stat.subject}</p>
       <div className="mt-1 flex items-center gap-2">
-        <span className="font-display text-2xl font-bold text-navy">{stat.score}%</span>
+        <span className="font-display text-2xl text-navy">{stat.score}%</span>
         <span className="flex items-center gap-0.5 rounded-full bg-white/70 px-1.5 py-0.5 text-xs font-bold text-navy">
           <TrendingUp className="h-3 w-3" />
           {stat.change}%
