@@ -6,11 +6,14 @@ export async function POST(req: Request) {
 
   const admin = createAdminClient()
 
-  // 1. Create the auth user via the admin API
   const { data: authData, error: authError } = await admin.auth.admin.createUser({
     email,
     password,
-    user_metadata: { full_name: fullName, onboarding_step: 1 },
+    user_metadata: {
+      full_name: fullName,
+      onboarding_step: 1,
+      role: "parent",
+    },
     email_confirm: false,
   })
 
@@ -29,7 +32,6 @@ export async function POST(req: Request) {
 
   if (insertError) {
     console.error('[signup] parents insert failed:', insertError)
-    // Roll back the orphaned auth user
     await admin.auth.admin.deleteUser(userId)
     return NextResponse.json(
       {

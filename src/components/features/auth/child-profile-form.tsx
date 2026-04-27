@@ -1,29 +1,31 @@
 "use client";
 
-import { ArrowLeft, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Lock, Mail, UserRound } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Controller } from "react-hook-form";
 import { useChildProfile } from "@/hooks/use-child-profile";
 import { usePasswordVisibility } from "@/hooks/use-password-visibility";
 import { AvatarPicker } from "./avatar-picker";
 import { DifficultyPicker } from "./difficulty-picker";
 
-const AGE_OPTIONS = Array.from({ length: 13 }, (_, i) => i + 5);
+const GENDER_OPTIONS = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+  { value: "non-binary", label: "Non-binary" },
+  { value: "prefer-not-to-say", label: "Prefer not to say" },
+];
 
 export function ChildProfileForm() {
-  const { form, isLoading, onSubmit } = useChildProfile();
+  const { form, isLoading, onSubmitAndContinue, onSubmitAndAddAnother } = useChildProfile();
   const { showPassword, toggle: togglePassword } = usePasswordVisibility();
   const {
     register,
-    watch,
-    setValue,
+    control,
     formState: { errors },
   } = form;
-
-  const avatar = watch("avatar");
-  const difficulty = watch("difficulty");
 
   return (
     <div className="w-full max-w-lg">
@@ -43,7 +45,7 @@ export function ChildProfileForm() {
           Back
         </Link>
 
-        <form onSubmit={onSubmit} className="space-y-5">
+        <form onSubmit={onSubmitAndContinue} className="space-y-5">
           <div className="space-y-1.5">
             <Label htmlFor="childName" className="font-bold text-navy">Child&apos;s Name</Label>
             <div className="relative">
@@ -62,23 +64,24 @@ export function ChildProfileForm() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label htmlFor="age" className="font-bold text-navy">Age</Label>
+              <Label htmlFor="gender" className="font-bold text-navy">Gender</Label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base leading-none">🎂</span>
+                <UserRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <select
-                  id="age"
+                  id="gender"
                   disabled={isLoading}
                   className="w-full appearance-none rounded-xl border-2 border-border bg-cream py-2.5 pl-10 pr-8 text-sm font-medium text-navy focus:border-primary focus:outline-none"
-                  {...register("age")}
+                  {...register("gender")}
                 >
-                  {AGE_OPTIONS.map((age) => (
-                    <option key={age} value={String(age)}>
-                      {age} years
+                  <option value="">Select gender</option>
+                  {GENDER_OPTIONS.map((g) => (
+                    <option key={g.value} value={g.value}>
+                      {g.label}
                     </option>
                   ))}
                 </select>
               </div>
-              {errors.age && <p className="text-sm text-destructive">{errors.age.message}</p>}
+              {errors.gender && <p className="text-sm text-destructive">{errors.gender.message}</p>}
             </div>
 
             <div className="space-y-1.5">
@@ -98,7 +101,13 @@ export function ChildProfileForm() {
 
           <div className="space-y-2">
             <Label className="font-bold text-navy">Pick Sparky&apos;s Outfit! 🎨</Label>
-            <AvatarPicker value={avatar} onChange={(v) => setValue("avatar", v, { shouldValidate: true })} />
+            <Controller
+              control={control}
+              name="avatar"
+              render={({ field }) => (
+                <AvatarPicker value={field.value} onChange={field.onChange} />
+              )}
+            />
             {errors.avatar && <p className="text-sm text-destructive">{errors.avatar.message}</p>}
           </div>
 
@@ -167,20 +176,39 @@ export function ChildProfileForm() {
 
           <div className="space-y-2">
             <Label className="font-bold text-navy">Difficulty Preference</Label>
-            <DifficultyPicker value={difficulty} onChange={(v) => setValue("difficulty", v, { shouldValidate: true })} />
+            <Controller
+              control={control}
+              name="difficulty"
+              render={({ field }) => (
+                <DifficultyPicker value={field.value} onChange={field.onChange} />
+              )}
+            />
             {errors.difficulty && <p className="text-sm text-destructive">{errors.difficulty.message}</p>}
           </div>
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full rounded-xl border-2 border-navy bg-primary py-6 text-base font-bold text-white shadow-[3px_3px_0px_0px_var(--navy)] hover:bg-primary-hover active:shadow-none active:translate-x-0.75 active:translate-y-0.75 transition-all"
-          >
-            {isLoading && (
-              <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-            )}
-            Almost There! →
-          </Button>
+          <div className="flex gap-3">
+            <Button
+              type="button"
+              onClick={onSubmitAndAddAnother}
+              disabled={isLoading}
+              className="flex-1 rounded-xl border-2 border-navy bg-white py-6 text-base font-bold text-navy shadow-[3px_3px_0px_0px_var(--navy)] hover:bg-cream active:shadow-none active:translate-x-0.75 active:translate-y-0.75 transition-all"
+            >
+              {isLoading && (
+                <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-navy border-t-transparent" />
+              )}
+              + Add Another
+            </Button>
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="flex-1 rounded-xl border-2 border-navy bg-primary py-6 text-base font-bold text-white shadow-[3px_3px_0px_0px_var(--navy)] hover:bg-primary-hover active:shadow-none active:translate-x-0.75 active:translate-y-0.75 transition-all"
+            >
+              {isLoading && (
+                <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              )}
+              Done →
+            </Button>
+          </div>
         </form>
       </div>
 

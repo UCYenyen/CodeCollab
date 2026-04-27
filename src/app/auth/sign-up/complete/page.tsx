@@ -20,7 +20,7 @@ export default async function CompletePage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <CompleteLeftPanel />
-      <div className="flex min-h-screen flex-col items-center justify-center bg-secondary px-8 py-12">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-muted px-8 py-12">
         <div className="mb-8 w-full max-w-lg">
           <SignUpSteps currentStep={3} />
         </div>

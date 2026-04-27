@@ -7,16 +7,18 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { childProfileSchema, type ChildProfileSchema } from "@/validations/auth";
 
+const DEFAULT_VALUES = { gender: "", avatar: "space", difficulty: "ready" };
+
 export function useChildProfile() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ChildProfileSchema>({
     resolver: zodResolver(childProfileSchema),
-    defaultValues: { age: "8", avatar: "space", difficulty: "ready" },
+    defaultValues: DEFAULT_VALUES,
   });
 
-  const onSubmit = form.handleSubmit(async (data) => {
+  const createChild = async (data: ChildProfileSchema, addAnother: boolean) => {
     setIsLoading(true);
 
     const res = await fetch("/api/auth/create-child", {
@@ -33,8 +35,16 @@ export function useChildProfile() {
       return;
     }
 
-    router.push("/auth/sign-up/complete");
-  });
+    if (addAnother) {
+      form.reset(DEFAULT_VALUES);
+      toast.success(`${data.childName} was added! Add another child or click Done when you're finished.`);
+    } else {
+      router.push("/auth/sign-up/complete");
+    }
+  };
 
-  return { form, isLoading, onSubmit };
+  const onSubmitAndContinue = form.handleSubmit((data) => createChild(data, false));
+  const onSubmitAndAddAnother = form.handleSubmit((data) => createChild(data, true));
+
+  return { form, isLoading, onSubmitAndContinue, onSubmitAndAddAnother };
 }

@@ -28,8 +28,8 @@ export const parentAccountSchema = z.object({
 
 export const childProfileSchema = z.object({
   childName: z.string().min(2, { message: 'Child name must be at least 2 characters' }),
-  age: z.string().min(1, { message: 'Please select an age' }),
-  dateOfBirth: z.string().optional(),
+  gender: z.string().min(1, { message: 'Please select a gender' }),
+  dateOfBirth: z.string().min(1, { message: 'Please enter a date of birth' }),
   avatar: z.string().min(1, { message: 'Please select an avatar' }),
   childEmail: z.string().email({ message: 'Invalid email address' }),
   childPassword: z.string().min(8, { message: 'Password must be at least 8 characters' }),

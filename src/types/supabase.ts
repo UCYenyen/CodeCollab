@@ -18,16 +18,22 @@ export type Database = {
         Row: {
           coins: number | null
           created_at: string
+          date_of_birth: string
+          gender: Database["public"]["Enums"]["gender"]
           id: string
         }
         Insert: {
           coins?: number | null
           created_at?: string
-          id?: string
+          date_of_birth: string
+          gender: Database["public"]["Enums"]["gender"]
+          id: string
         }
         Update: {
           coins?: number | null
           created_at?: string
+          date_of_birth?: string
+          gender?: Database["public"]["Enums"]["gender"]
           id?: string
         }
         Relationships: []
@@ -118,7 +124,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      gender: "Male" | "Female"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -245,6 +251,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      gender: ["Male", "Female"],
+    },
   },
 } as const
