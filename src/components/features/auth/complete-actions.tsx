@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 
 interface CompleteActionsProps {
   childName: string;
@@ -48,7 +49,9 @@ export function CompleteActions({ childName }: CompleteActionsProps) {
         disabled={isLoading}
         className="w-full text-center text-sm text-muted-foreground hover:text-navy"
       >
+        <Link href={"/dashboard"}>
         Skip for now, go to dashboard →
+        </Link>
       </button>
     </div>
   );

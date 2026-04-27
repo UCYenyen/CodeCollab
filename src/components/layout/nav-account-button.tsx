@@ -38,7 +38,7 @@ export function NavAccountButton({ user }: NavAccountButtonProps) {
           )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push("/")}>
+        <DropdownMenuItem onClick={() => router.push("/dashboard")}>
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
