@@ -7,6 +7,8 @@ import {
   Search,
   Target,
   Heart,
+  Globe,
+  UserCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,6 +22,8 @@ const FILTER_OPTIONS: { value: ResearchFilter; Icon: LucideIcon }[] = [
   { value: "Logic", Icon: Search },
   { value: "Motor Skills", Icon: Target },
   { value: "Social Skills", Icon: Heart },
+  { value: "General", Icon: Globe },
+  { value: "Parent Engagement", Icon: UserCheck },
 ];
 
 export function ResearchFilter({ filter, onFilterChange }: ResearchFilterProps) {
