@@ -23,7 +23,7 @@ export function CompleteActions({ childName }: CompleteActionsProps) {
 
   const handleStartQuiz = async () => {
     await markComplete();
-    router.push("/");
+    router.push("/assessment");
   };
 
   const handleSkip = async () => {

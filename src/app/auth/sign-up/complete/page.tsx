@@ -15,7 +15,7 @@ export default async function CompletePage() {
   if (!step || step < 1) redirect("/auth/sign-up");
   if (step < 2) redirect("/auth/sign-up/child-profile");
 
-  const childName = (user.user_metadata?.child_profile?.name as string) ?? "there";
+  const childName = (user.user_metadata?.display_name as string) ?? "your child";
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
@@ -26,8 +26,8 @@ export default async function CompletePage() {
         </div>
         <div className="w-full max-w-lg">
           <div className="mb-6 text-center">
-            <h1 className="font-display text-4xl font-bold text-navy">
-              Welcome to BrainSpark, {childName}! 🧠⚡
+            <h1 className="font-display text-4xl text-navy">
+              Welcome to BrainSpark!
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
               Before we start, let&apos;s find {childName}&apos;s brain superpowers with a quick quiz!

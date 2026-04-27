@@ -1,9 +1,12 @@
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowBigLeft } from "lucide-react";
 export function CompleteLeftPanel() {
   return (
     <div className="relative hidden h-full flex-col bg-navy p-10 text-white lg:flex">
       <div className="flex items-center gap-2">
+        <Link href="/"><ArrowBigLeft className="h-6 transition-all duration-300 hover:fill-primary text-card hover:text-primary fill-white w-6 font-bold" /></Link>
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
           <Sparkles className="h-4 w-4 text-primary-foreground" />
         </div>
