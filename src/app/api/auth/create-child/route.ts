@@ -44,10 +44,9 @@ export async function POST(req: Request) {
       user_metadata: {
         role: "child",
         display_name: childName,
+        gender: gender,
         parent_id: parentUser.id,
-        child_name: childName,
-        child_gender: gender,
-        child_avatar: avatar,
+        avatar: avatar,
         child_difficulty: difficulty,
       },
     });
@@ -61,7 +60,7 @@ export async function POST(req: Request) {
 
     const { error: insertError } = await adminClient
       .from("children")
-      .insert({ id: childUser.id, coins: 0, date_of_birth: dateOfBirth });
+      .insert({ id: childUser.id, coins: 0, date_of_birth: dateOfBirth, gender });
 
     if (insertError) {
       return NextResponse.json({ error: insertError.message }, { status: 400 });

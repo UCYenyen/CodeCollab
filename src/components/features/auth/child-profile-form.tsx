@@ -12,10 +12,8 @@ import { AvatarPicker } from "./avatar-picker";
 import { DifficultyPicker } from "./difficulty-picker";
 
 const GENDER_OPTIONS = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-  { value: "non-binary", label: "Non-binary" },
-  { value: "prefer-not-to-say", label: "Prefer not to say" },
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
 ];
 
 export function ChildProfileForm() {

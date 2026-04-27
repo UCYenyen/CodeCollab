@@ -63,7 +63,10 @@ export async function GET(req: Request) {
       );
     }
 
-    if (isSignup && data.user) {
+    const step = data.user?.user_metadata?.onboarding_step as number | undefined;
+    const isNewUser = step === undefined;
+
+    if ((isSignup || isNewUser) && data.user) {
       const admin = createAdminClient();
       const { error: insertError } = await admin
         .from("parents")
@@ -74,8 +77,7 @@ export async function GET(req: Request) {
       }
     }
 
-    const step = data.user?.user_metadata?.onboarding_step;
-    return NextResponse.redirect(getOnboardingRedirect(step, isSignup, origin));
+    return NextResponse.redirect(getOnboardingRedirect(step, isSignup || isNewUser, origin));
   }
 
   if (tokenHash && isAllowedOtpType(type)) {
