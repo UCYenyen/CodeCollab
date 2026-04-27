@@ -3,7 +3,9 @@ export type ResearchCategory =
   | "Memory"
   | "Logic"
   | "Motor Skills"
-  | "Social Skills";
+  | "Social Skills"
+  | "General"
+  | "Parent Engagement";
 
 export type ResearchFilter = ResearchCategory | "All";
 
@@ -11,6 +13,7 @@ export type ResearchItem = {
   id: string;
   title: string;
   description: string;
+  keyPoints: string[];
   url: string;
   category: ResearchCategory;
 };

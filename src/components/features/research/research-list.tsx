@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, CheckCircle2 } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -16,73 +16,131 @@ const CATEGORY_STYLES: Record<ResearchCategory, string> = {
   Logic: "bg-step-2/30 text-navy border-step-2/50",
   "Motor Skills": "bg-step-1/30 text-navy border-step-1/50",
   "Social Skills": "bg-accent/20 text-navy border-accent/50",
+  General: "bg-primary/20 text-navy border-primary/50",
+  "Parent Engagement": "bg-green-500/20 text-green-900 border-green-500/50",
 };
 
 export const RESEARCH_ITEMS: ResearchItem[] = [
   {
-    id: "exec-functions-diamond",
+    id: "gui-meta-analysis-2024",
+    category: "General",
+    title: "Game-Based Learning in Early Childhood Education",
+    description: "A systematic review and meta-analysis confirming game-based learning as a highly effective tool for early educators (Gui et al., 2024).",
+    keyPoints: [
+      "Demonstrated significant positive effects on cognitive development (g = 0.46).",
+      "Measurable improvements in social (g = 0.38) and emotional development (g = 0.35).",
+      "Confirmed moderate-to-large effect sizes in increasing student motivation and engagement."
+    ],
+    url: "https://doi.org/10.3389/fpsyg.2024.1307881",
+  },
+  {
+    id: "collantes-ef-2024",
     category: "Attention",
-    title: "Executive Functions in Children: Neural and Behavioral Evidence",
-    description:
-      "This study examines how sustained attention and inhibitory control develop between ages 4–12 and demonstrates that structured game-based activities produce measurable improvements in executive function scores compared to passive screen time.",
-    url: "https://doi.org/10.1146/annurev-psych-113011-143750",
+    title: "Serious Games for Executive Functions in Neurodiverse Populations",
+    description: "A systematic review of 16 studies examining how structured digital games influence executive functioning (Collantes et al., 2024).",
+    keyPoints: [
+      "15 out of 16 studies reported significant improvements in executive function domains.",
+      "Most consistently replicated improvements were found in attention and inhibitory control.",
+      "Validated the use of interactive digital challenges to build cognitive flexibility."
+    ],
+    url: "https://doi.org/10.2196/59053",
   },
   {
-    id: "attention-training-kids",
+    id: "miri-adhd-2025",
     category: "Attention",
-    title: "Targeted Attention Training Through Adaptive Digital Games",
-    description:
-      "A randomized controlled trial showing that children aged 6–10 who used adaptive attention-training games for 15 minutes daily showed a 23% improvement in sustained attention tasks over eight weeks compared to a control group.",
-    url: "https://doi.org/10.1016/j.neuropsychologia.2013.12.028",
+    title: "Serious Games as Digital Therapeutics for ADHD",
+    description: "A comprehensive review of 35 RCTs indicating serious games can act as digital therapeutics for attention challenges (Miri et al., 2025).",
+    keyPoints: [
+      "89% of trials showed children exhibited a highly positive attitude toward game interventions.",
+      "Measurable decreases in hyperactivity-impulsivity and increases in sustained attention.",
+      "Neuroimaging (EEG) supported the efficacy, showing active changes in alpha and beta brainwave bands."
+    ],
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12093074/",
   },
   {
-    id: "working-memory-meta",
+    id: "rahimi-wm-2017",
     category: "Memory",
-    title: "Working Memory Training in Children: A Meta-Analysis",
-    description:
-      "A comprehensive meta-analysis of 23 studies finding that working memory training yields reliable near-transfer gains in children with and without learning difficulties, with effect sizes strongest when training is adaptive and distributed over time.",
-    url: "https://doi.org/10.1037/a0028228",
+    title: "Working Memory Training in the Form of Structured Games",
+    description: "A controlled study testing the practical application of game mechanics on long-term working memory retention (Rahimi et al., 2017).",
+    keyPoints: [
+      "Produced significant improvement in post-test working memory measures.",
+      "Correlated with a significant reduction in parents' reports of daily inattentiveness.",
+      "Concluded that structured games benefit both neurotypical and neurodiverse children in building academic mind skills."
+    ],
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5206324/",
   },
   {
-    id: "spaced-repetition-memory",
+    id: "abedi-minecraft-2023",
     category: "Memory",
-    title: "Spaced Repetition and Long-Term Retention in Pediatric Learning",
-    description:
-      "This paper establishes that spaced repetition embedded in game mechanics produces 40% greater long-term retention in 8–12 year olds compared to massed practice, and that motivation remains higher when repetition is disguised within narrative gameplay.",
-    url: "https://doi.org/10.1177/1745691612453260",
+    title: "Working Memory Training using Adaptive Stepwise Methods",
+    description: "Research examining adaptive, self-select working memory training delivered in short 20-minute digital sessions (Abedi et al., 2023).",
+    keyPoints: [
+      "Demonstrated near, intermediate, and far transfer gains in working memory.",
+      "Proved that durable cognitive benefits can be achieved in structured bursts of 20 minutes or less.",
+      "Validated the importance of adaptive difficulty systems that scale to the child's real-time performance."
+    ],
+    url: "https://doi.org/10.2196/45326",
   },
   {
-    id: "logic-play-whitebread",
-    category: "Logic",
-    title: "Playful Problem-Solving and Logical Reasoning in Early Childhood",
-    description:
-      "Longitudinal research tracking 500 children from age 5 to 9 shows that regular engagement with logic puzzles and rule-based games accelerates the development of analogical reasoning and causal inference by approximately six months relative to peers.",
-    url: "https://doi.org/10.1080/10400419.2012.677997",
-  },
-  {
-    id: "game-based-problem-solving",
-    category: "Logic",
-    title: "Game-Based Learning and Transfer of Problem-Solving Strategies",
-    description:
-      "Children who practised strategy games 20 minutes per session, three times per week, demonstrated significantly better performance on novel multi-step reasoning tasks, suggesting that game-acquired strategies transfer to academic problem-solving contexts.",
-    url: "https://doi.org/10.1007/s10648-010-9143-1",
-  },
-  {
-    id: "motor-digital-intervention",
+    id: "liu-vr-motor-2025",
     category: "Motor Skills",
-    title: "Touch-Screen Interaction and Fine Motor Development in Children",
-    description:
-      "This intervention study finds that precision-oriented touch-screen activities — including tracing, pinching, and timing tasks — improve fine motor control indices in 5–8 year olds, with effects comparable to traditional pencil-and-paper exercises.",
-    url: "https://doi.org/10.1016/j.ridd.2013.01.012",
+    title: "Effects of Virtual Reality Motor Games on Motor Skills",
+    description: "A large-scale meta-analysis of 19 studies involving 850 children, testing technology-based motor interventions (Liu et al., 2025).",
+    keyPoints: [
+      "Found technology-based motor games significantly improve fine motor control.",
+      "Demonstrated a large, statistically significant effect size (SMD = 0.73).",
+      "Established digital interfaces as active training environments rather than passive screen time."
+    ],
+    url: "https://doi.org/10.3389/fpsyg.2024.1483370",
   },
   {
-    id: "cooperative-social-games",
-    category: "Social Skills",
-    title: "Cooperative Digital Games and Social-Emotional Learning",
-    description:
-      "A school-based study of cooperative game play demonstrates that children who engaged in turn-based collaborative challenges showed significantly improved empathy scores, perspective-taking ability, and peer-rated prosocial behaviour after twelve weeks.",
-    url: "https://doi.org/10.1016/j.compedu.2012.03.024",
+    id: "rukmini-fine-motor-2024",
+    category: "Motor Skills",
+    title: "Impact of Technology-Based Games on Fine Motor Development",
+    description: "A targeted study measuring the physical development outcomes of interactive digital tablet applications (Rukmini et al., 2024).",
+    keyPoints: [
+      "The number of children scoring 'good' in fine motor ability jumped from 21.4% to 57.1%.",
+      "Results proved statistically significant (p = .000), proving physical translation of digital actions.",
+      "Tasks like precision-dragging and timed-tapping directly transfer to real-world dexterity."
+    ],
+    url: "https://adihusada.ac.id/jurnal/index.php/AHNJ/article/download/628/411",
   },
+  {
+    id: "villadangos-sel-2025",
+    category: "Social Skills",
+    title: "Gamified Socio-Emotional Learning for Children",
+    description: "A thematic analysis synthesizing data from 122 peer-reviewed studies on gamified social-emotional development (Villadangos et al., 2025).",
+    keyPoints: [
+      "Confirmed gamified environments promote emotional regulation and proactive coping skills.",
+      "Demonstrated reliable increases in interpersonal communication and prosocial behaviour.",
+      "Explicitly linked strong social-emotional outcomes to accelerated cognitive and psychomotor growth."
+    ],
+    url: "https://www.ejosdr.com",
+  },
+  {
+    id: "swartz-brain-agents-2025",
+    category: "Social Skills",
+    title: "Game-Based Social-Emotional Learning: A Pilot Study",
+    description: "A pilot study testing a trauma-informed, game-based social-emotional intervention in middle schools (Swartz et al., 2025).",
+    keyPoints: [
+      "Positively impacted real-world resilience and stress-coping behaviours.",
+      "Younger students showed the highest engagement metrics with the digital narrative formats.",
+      "Validated video games as a safe, highly effective sandbox for practicing emotional responses."
+    ],
+    url: "https://doi.org/10.2196/67550",
+  },
+  {
+    id: "camilleri-parents-2021",
+    category: "Parent Engagement",
+    title: "Parents' Acceptance of Educational Technology",
+    description: "A cross-national study examining the predictors of parental involvement in children's digital learning (Camilleri et al., 2021).",
+    keyPoints: [
+      "Parents are significantly more engaged when provided with structured, transparent technological tools.",
+      "Automated reports and accessible data metrics successfully convert parental concern into active participation.",
+      "Ease of use and clear facilitating conditions are the strongest predictors of long-term parent adoption."
+    ],
+    url: "https://doi.org/10.3389/fpsyg.2021.719430",
+  }
 ];
 
 export function ResearchList({ items }: ResearchListProps) {
@@ -116,16 +174,29 @@ export function ResearchList({ items }: ResearchListProps) {
             </div>
           </AccordionTrigger>
           <AccordionContent className="pb-5 pt-0">
-            <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+            <p className="mb-4 text-sm font-medium leading-relaxed text-navy/80">
               {item.description}
             </p>
+            
+            <div className="mb-5 space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Key Findings</h4>
+              <ul className="space-y-2">
+                {item.keyPoints.map((point, index) => (
+                  <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span className="leading-relaxed">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <Link
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-navy bg-primary px-3 py-1.5 text-xs font-bold text-white shadow-[2px_2px_0px_0px_var(--navy)] transition-all hover:bg-primary-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-navy bg-primary px-4 py-2 text-xs font-bold text-white shadow-[2px_2px_0px_0px_var(--navy)] transition-all hover:bg-primary-hover active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
             >
-              View Research
+              Read Full Paper
               <ExternalLink className="h-3.5 w-3.5" />
             </Link>
           </AccordionContent>
