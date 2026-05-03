@@ -31,7 +31,7 @@ export default async function DashboardLayout({
     }));
 
   return (
-    <div className="flex h-screen overflow-hidden bg-muted">
+    <div className="flex h-screen flex-col overflow-hidden bg-muted md:flex-row">
       <DashboardSidebar children={sidebarChildren} />
       <main className="flex-1 overflow-y-auto">{children}</main>
     </div>

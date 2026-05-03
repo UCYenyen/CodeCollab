@@ -15,12 +15,12 @@ export type AssessmentStep =
   | "completion";
 
 export interface GameMetrics {
-  accuracy: number; // 0 to 1
+  accuracy: number;
   reactionTimeMs?: number;
   falsePositives?: number;
-  speedScore?: number; // 0 to 1
+  speedScore?: number;
   attempts?: number;
-  maxSpan?: number; // For memory
+  maxSpan?: number;
 }
 
 export type DomainScores = Record<Domain, number>;

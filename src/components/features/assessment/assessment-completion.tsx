@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 import type { AssessmentResult, Domain, AdaptationLevel } from "@/types/assessment";
@@ -9,8 +10,38 @@ interface AssessmentCompletionProps {
 
 export function AssessmentCompletion({ result }: AssessmentCompletionProps) {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!result) return null;
+
+  const handleDashboardClick = async () => {
+    setIsSubmitting(true);
+    try {
+      const childId = sessionStorage.getItem("assessmentChildId");
+
+      if (!childId) {
+        throw new Error("Missing childId. Please start the assessment from the dashboard.");
+      }
+
+      const response = await fetch(`/api/children/${childId}/assessment-complete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ result }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error:", errorData);
+        throw new Error(errorData.error || "Failed to save assessment");
+      }
+
+      sessionStorage.removeItem("assessmentChildId");
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error saving assessment:", error);
+      setIsSubmitting(false);
+    }
+  };
 
   const data = Object.entries(result.scores).map(([domain, score]) => ({
     domain,
@@ -70,10 +101,11 @@ export function AssessmentCompletion({ result }: AssessmentCompletionProps) {
       </div>
 
       <Button
-        onClick={() => router.push("/dashboard")}
-        className="w-full text-lg h-16 rounded-2xl border-2 border-navy bg-primary font-bold text-white shadow-[4px_4px_0px_0px_var(--navy)] hover:bg-primary-hover active:shadow-none active:translate-x-1 active:translate-y-1 transition-all"
+        onClick={handleDashboardClick}
+        disabled={isSubmitting}
+        className="w-full text-lg h-16 rounded-2xl border-2 border-navy bg-primary font-bold text-white shadow-[4px_4px_0px_0px_var(--navy)] hover:bg-primary-hover active:shadow-none active:translate-x-1 active:translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Go to Dashboard →
+        {isSubmitting ? "Saving..." : "Go to Dashboard →"}
       </Button>
     </div>
   );

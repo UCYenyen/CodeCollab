@@ -1,5 +1,13 @@
 export type ChildAccentColor = "primary" | "accent";
 
+export type AssessmentScores = {
+  attention: number;
+  memory: number;
+  logic: number;
+  motoric: number;
+  social: number;
+};
+
 export type ChildDashboardData = {
   id: string;
   name: string;
@@ -10,6 +18,8 @@ export type ChildDashboardData = {
   avatarKey: string;
   weeklyCoins: number;
   accentColor: ChildAccentColor;
+  hasCompletedPreAssessment: boolean;
+  assessmentScores: AssessmentScores | null;
 };
 
 export type SubjectStatData = {

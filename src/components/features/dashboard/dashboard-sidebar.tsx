@@ -4,7 +4,6 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  LayoutDashboard,
   BarChart2,
   Settings,
   User,
@@ -12,6 +11,8 @@ import {
   ChevronDown,
   ChevronRight,
   Sparkles,
+  Menu,
+  X,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [childrenOpen, setChildrenOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const supabase = createClient();
 
   const handleSignOut = async () => {
@@ -33,10 +35,15 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
     router.refresh();
   };
 
-  return (
-    <aside className="flex h-screen w-56 flex-shrink-0 flex-col bg-navy text-white">
-      
-      <Link href={"/"} className="flex items-center gap-2.5 px-5 py-5">
+  const handleNavigate = () => setMobileOpen(false);
+
+  const sidebarContent = (
+    <>
+      <Link
+        href={"/"}
+        onClick={handleNavigate}
+        className="flex items-center gap-2.5 px-5 py-5"
+      >
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
           <Sparkles className="h-4 w-4 text-white" />
         </div>
@@ -46,19 +53,6 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
       </Link>
 
       <nav className="flex-1 space-y-0.5 px-3 py-2">
-        <Link
-          href="/dashboard"
-          className={cn(
-            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-            pathname === "/dashboard"
-              ? "bg-primary text-white"
-              : "text-white/70 hover:bg-white/10 hover:text-white",
-          )}
-        >
-          <LayoutDashboard className="h-4 w-4 flex-shrink-0" />
-          Dashboard
-        </Link>
-
         <div>
           <button
             onClick={() => setChildrenOpen((o) => !o)}
@@ -77,6 +71,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
             <div className="ml-4 mt-0.5 space-y-0.5 border-l border-white/10 pl-4">
               <Link
                 href="/dashboard"
+                onClick={handleNavigate}
                 className={cn(
                   "block rounded-lg px-3 py-2 text-xs font-medium transition-colors",
                   pathname === "/dashboard"
@@ -90,6 +85,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
                 <Link
                   key={child.id}
                   href={`/dashboard/children/${child.id}`}
+                  onClick={handleNavigate}
                   className="block rounded-lg px-3 py-2 text-xs font-medium text-white/60 transition-colors hover:text-white"
                 >
                   {child.name}
@@ -101,6 +97,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
 
         <Link
           href="/dashboard/reports"
+          onClick={handleNavigate}
           className={cn(
             "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
             pathname.startsWith("/dashboard/reports")
@@ -114,6 +111,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
 
         <Link
           href="/dashboard/settings"
+          onClick={handleNavigate}
           className={cn(
             "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
             pathname.startsWith("/dashboard/settings")
@@ -135,6 +133,51 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
           Logout
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      <div className="flex items-center justify-between bg-navy px-4 py-3 md:hidden">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
+            <Sparkles className="h-3.5 w-3.5 text-white" />
+          </div>
+          <span className="font-display text-base font-bold tracking-wide text-white">
+            Brain<span className="text-primary">Spark</span>
+          </span>
+        </Link>
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="rounded-lg p-2 text-white hover:bg-white/10"
+          aria-label="Open menu"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+      </div>
+
+      <aside className="hidden h-screen w-56 flex-shrink-0 flex-col bg-navy text-white md:flex">
+        {sidebarContent}
+      </aside>
+
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div
+            onClick={() => setMobileOpen(false)}
+            className="absolute inset-0 bg-black/50"
+          />
+          <aside className="relative flex h-full w-64 flex-col bg-navy text-white">
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="absolute right-3 top-3 rounded-lg p-2 text-white hover:bg-white/10"
+              aria-label="Close menu"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   );
 }

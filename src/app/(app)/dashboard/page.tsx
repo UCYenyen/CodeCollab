@@ -1,9 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { DashboardHeader } from "@/components/features/dashboard/dashboard-header";
-import { ChildrenSection } from "@/components/features/dashboard/children-section";
-import { LearningProgress } from "@/components/features/dashboard/learning-progress";
+import { DashboardContent } from "@/components/features/dashboard/dashboard-content";
 import type {
   ChildAccentColor,
   ChildDashboardData,
@@ -75,6 +73,12 @@ export default async function DashboardPage() {
     .in("refrence_children", childIds)
     .gte("created_at", weekStart.toISOString());
 
+  const { data: assessmentRows } = await adminClient
+    .from("pre_assesment")
+    .select("refrence_child, attention_score, memory_score, logic_score, motoric_score, social_score, created_at")
+    .in("refrence_child", childIds)
+    .order("created_at", { ascending: false });
+
   const children: ChildDashboardData[] = childUsers.map((childUser, index) => {
     const row = childRows?.find((r) => r.id === childUser.id);
     const dob = row?.date_of_birth ?? "";
@@ -83,6 +87,19 @@ export default async function DashboardPage() {
       weekHistories
         ?.filter((h) => h.refrence_children === childUser.id)
         .reduce((sum, h) => sum + (h["coins_ received"] ?? 0), 0) ?? 0;
+
+    const latestAssessment = assessmentRows?.find(
+      (a) => a.refrence_child === childUser.id,
+    );
+    const assessmentScores = latestAssessment
+      ? {
+          attention: latestAssessment.attention_score ?? 0,
+          memory: latestAssessment.memory_score ?? 0,
+          logic: latestAssessment.logic_score ?? 0,
+          motoric: latestAssessment.motoric_score ?? 0,
+          social: latestAssessment.social_score ?? 0,
+        }
+      : null;
 
     return {
       id: childUser.id,
@@ -97,6 +114,8 @@ export default async function DashboardPage() {
         (childUser.user_metadata?.avatar as string | undefined) ?? "space",
       weeklyCoins,
       accentColor: ACCENT_COLORS[index % ACCENT_COLORS.length] ?? "primary",
+      hasCompletedPreAssessment: (row?.coins ?? 0) > 0,
+      assessmentScores,
     };
   });
 
@@ -135,14 +154,12 @@ export default async function DashboardPage() {
   }));
 
   return (
-    <div className="space-y-8 px-8 py-8">
-      <DashboardHeader parentName={parentName} />
-      <ChildrenSection children={children} />
-      <LearningProgress
-        weeklyData={weeklyData}
-        monthlyData={monthlyData}
-        children={chartChildren}
-      />
-    </div>
+    <DashboardContent
+      parentName={parentName}
+      children={children}
+      weeklyData={weeklyData}
+      monthlyData={monthlyData}
+      chartChildren={chartChildren}
+    />
   );
 }

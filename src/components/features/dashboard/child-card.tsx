@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MoreHorizontal, Play, Loader2 } from "lucide-react";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -37,9 +37,11 @@ const AVATAR_BG: Record<string, string> = {
 
 interface ChildCardProps {
   child: ChildDashboardData;
+  isSelected?: boolean;
+  onSelect?: (childId: string) => void;
 }
 
-export function ChildCard({ child }: ChildCardProps) {
+export function ChildCard({ child, isSelected, onSelect }: ChildCardProps) {
   const router = useRouter();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -73,7 +75,15 @@ export function ChildCard({ child }: ChildCardProps) {
 
   return (
     <>
-      <div className="rounded-2xl border-2 border-navy bg-white shadow-[4px_4px_0px_0px_var(--navy)] transition-all hover:shadow-[2px_2px_0px_0px_var(--navy)] hover:translate-x-0.5 hover:translate-y-0.5">
+      <div
+        onClick={() => onSelect?.(child.id)}
+        className={cn(
+          "rounded-2xl border-2 bg-white transition-all cursor-pointer",
+          isSelected
+            ? "shadow-[4px_4px_0px_0px_var(--primary)] hover:shadow-[2px_2px_0px_0px_var(--primary)] hover:translate-x-0.5 hover:translate-y-0.5"
+            : "border-navy shadow-[4px_4px_0px_0px_var(--navy)] hover:shadow-[2px_2px_0px_0px_var(--navy)] hover:translate-x-0.5 hover:translate-y-0.5",
+        )}
+      >
         <div className="p-4">
           <div className="flex items-start gap-3">
             <Avatar className="h-14 w-14 border-2 border-navy flex-shrink-0">
@@ -144,30 +154,80 @@ export function ChildCard({ child }: ChildCardProps) {
               />
             </div>
           </div>
+
+          {child.assessmentScores && (
+            <div className="mt-4">
+              <p className="text-xs font-medium text-muted-foreground mb-1">Cognitive Profile</p>
+              <div className="h-44 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart
+                    data={[
+                      { subject: "Attn", value: child.assessmentScores.attention },
+                      { subject: "Mem", value: child.assessmentScores.memory },
+                      { subject: "Logic", value: child.assessmentScores.logic },
+                      { subject: "Motor", value: child.assessmentScores.motoric },
+                      { subject: "Social", value: child.assessmentScores.social },
+                    ]}
+                    outerRadius="70%"
+                  >
+                    <PolarGrid stroke="var(--border)" />
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: "var(--navy)", fontSize: 10, fontWeight: "bold" }}
+                    />
+                    <Radar
+                      dataKey="value"
+                      stroke="var(--primary)"
+                      fill="var(--primary)"
+                      fillOpacity={0.5}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex gap-2 border-t-2 border-border px-4 py-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => router.push(`/dashboard/children/${child.id}`)}
-            className="flex-1 rounded-xl border-2 border-navy text-xs font-bold text-navy hover:bg-muted"
-          >
-            View Report
-          </Button>
-          <Button
-            size="sm"
-            onClick={() => router.push(`/assessment`)}
-            className={cn(
-              "flex-1 gap-1.5 rounded-xl border-2 border-navy text-xs font-bold text-white shadow-[2px_2px_0px_0px_var(--navy)] transition-all hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5",
-              accentIsOrange
-                ? "bg-primary hover:bg-primary-hover"
-                : "bg-accent hover:bg-accent/90",
-            )}
-          >
-            <Play className="h-3 w-3 fill-white" />
-            Play
-          </Button>
+          {child.hasCompletedPreAssessment ? (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => router.push(`/dashboard/children/${child.id}`)}
+                className="flex-1 rounded-xl border-2 border-navy text-xs font-bold text-navy hover:bg-muted"
+              >
+                View Report
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => {
+                  sessionStorage.setItem("assessmentChildId", child.id);
+                  router.push(`/assessment`);
+                }}
+                className={cn(
+                  "flex-1 gap-1.5 rounded-xl border-2 border-navy text-xs font-bold text-white shadow-[2px_2px_0px_0px_var(--navy)] transition-all hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5",
+                  accentIsOrange
+                    ? "bg-primary hover:bg-primary-hover"
+                    : "bg-accent hover:bg-accent/90",
+                )}
+              >
+                <Play className="h-3 w-3 fill-white" />
+                Play
+              </Button>
+            </>
+          ) : (
+            <Button
+              size="sm"
+              onClick={() => {
+                  sessionStorage.setItem("assessmentChildId", child.id);
+                  router.push(`/assessment`);
+                }}
+              className="w-full rounded-xl border-2 border-navy text-xs font-bold text-white shadow-[2px_2px_0px_0px_var(--navy)] transition-all hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 bg-primary hover:bg-primary-hover"
+            >
+              Take Pre Assessment
+            </Button>
+          )}
         </div>
       </div>
 
