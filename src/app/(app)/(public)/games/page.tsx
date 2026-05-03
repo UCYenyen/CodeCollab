@@ -1,7 +1,9 @@
-import React from 'react'
+import { GamesListView } from "@/components/features/games/games-list-view";
 
 export default function page() {
   return (
-    <div>page</div>
-  )
+    <div className="min-h-screen bg-muted">
+      <GamesListView />
+    </div>
+  );
 }

@@ -95,7 +95,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
           )}
         </div>
 
-        <Link
+        {/* <Link
           href="/dashboard/reports"
           onClick={handleNavigate}
           className={cn(
@@ -107,7 +107,7 @@ export function DashboardSidebar({ children }: DashboardSidebarProps) {
         >
           <BarChart2 className="h-4 w-4 flex-shrink-0" />
           Reports
-        </Link>
+        </Link> */}
 
         <Link
           href="/dashboard/settings"
